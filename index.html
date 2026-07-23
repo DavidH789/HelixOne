@@ -323,6 +323,38 @@ function getGroupEmoji(name){
   }
   return "";
 }
+
+var GROUP_GLOSSARY=[
+  {kw:["hunter gatherer","hunter-gatherer","mesolithic","whg","ehg"],d:"Давня мисливсько-збиральницька популяція дописемної Європи (до ~8000 років тому) — одна з трьох основних предкових складових сучасних європейців, поряд із неолітичними фермерами й степовими скотарями."},
+  {kw:["farmer","neolithic","ancient north eurasia"],d:"Ранні землероби, що прийшли з Анатолії в Європу ~9000–6000 років тому й принесли землеробство — одна з трьох основних предкових складових сучасних європейців."},
+  {kw:["steppe","yamnaya","bronze age"],d:"Скотарські популяції причорноморсько-каспійських степів (~5000 років тому), пов'язані з поширенням індоєвропейських мов — третя основна предкова складова сучасних європейців."},
+  {kw:["ashkenazi"],d:"Ашкеназькі євреї — популяція з вираженим генетичним 'ефектом бутилочного горлечка' через історичну ізоляцію в середньовічній Європі; поєднує близькосхідний і південноєвропейський компоненти."},
+  {kw:["sephard"],d:"Сефардські євреї — популяція з історичним корінням на Піренейському півострові, генетично відмінна від ашкеназі."},
+  {kw:["scandinavia","norweg","swed","danish"],d:"Сучасна популяція Північної Європи (Норвегія, Швеція, Данія) — генетично близька до інших германських і балтійських груп."},
+  {kw:["baltic"],d:"Популяції Литви, Латвії, Естонії — проміжна генетична зона між Скандинавією та Східною Європою."},
+  {kw:["ukrain"],d:"Східнослов'янська популяція України — генетично близька до Польщі, Білорусі й західних регіонів Росії."},
+  {kw:["polish","poland"],d:"Західнослов'янська популяція Польщі — проміжна генетично між німецькими, балтійськими й східнослов'янськими групами."},
+  {kw:["german"],d:"Германомовна популяція Центральної Європи."},
+  {kw:["irish","ireland"],d:"Кельтомовна популяція Ірландії, генетично одна з найбільш ізольованих і однорідних у Західній Європі."},
+  {kw:["scot"],d:"Кельтомовна популяція Шотландії, генетично близька до ірландської та північноанглійської груп."},
+  {kw:["english","british","great britain"],d:"Популяція Великої Британії — суміш кельтських, англосаксонських і пізніших скандинавських/норманських компонентів."},
+  {kw:["anatolia"],d:"Історичний регіон Малої Азії (сучасна Туреччина) — джерело неолітичного землеробського компонента в європейському ДНК."},
+  {kw:["mediterranean"],d:"Широка географічна категорія узбережжя Середземномор'я — не єдина генетична популяція, а зона поступового переходу між кількома групами."},
+  {kw:["caucas"],d:"Гірський регіон між Чорним і Каспійським морями — генетично специфічна зона з давньою популяційною ізоляцією."},
+  {kw:["harappa"],d:"Назва незалежного (неакадемічного) ДНК-калькулятора спільноти ('HarappaWorld'), не усталений науковий термін — точне значення залежить від методології саме цього калькулятора."},
+  {kw:["eurogenes"],d:"Назва серії незалежних (неакадемічних) ДНК-калькуляторів спільноти Eurogenes — не усталений науковий термін, значення залежить від конкретного калькулятора."},
+  {kw:["north africa","berber","maghreb"],d:"Популяції Північної Африки — генетично поєднують близькосхідний, субсахарський та європейський компоненти в різних пропорціях."},
+  {kw:["south asia","india","indian"],d:"Широка географічна категорія Південної Азії — включає значну внутрішню генетичну різноманітність між регіонами й кастовими групами."}
+];
+function getGroupGlossary(name){
+  var n=(name||"").toLowerCase();
+  for(var i=0;i<GROUP_GLOSSARY.length;i++){
+    var entry=GROUP_GLOSSARY[i];
+    for(var j=0;j<entry.kw.length;j++){ if(n.indexOf(entry.kw[j])>=0) return entry.d; }
+  }
+  return null;
+}
+
 function isStale(dateStr){
   if(!dateStr) return false;
   var d=new Date(dateStr);
@@ -1176,6 +1208,7 @@ function renderAggregated(aggregatedFull){
     ) : "";
     var why="";
     if(S.whyOpen[g.key]){
+      var glossaryDef=getGroupGlossary(g.name);
       why='<div style="background:'+PAPER_DIM+'" class="mt-2 rounded-sm p-3 reveal">'+
         '<div class="flex items-center gap-1_5 mb-1_5">'+icon("list-checks",{size:12,color:WINE})+
         '<span style="color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="text-11 font-medium">Звідки взялось '+fmt1(g.avg)+'%</span></div>'+
@@ -1183,7 +1216,12 @@ function renderAggregated(aggregatedFull){
           return '<div class="flex justify-between text-11" style="font-family:\'Inter\',sans-serif;color:'+(r.ignored?TEXT_MUTE:TEXT_DARK)+';opacity:'+(r.ignored?0.5:1)+'"><span>'+esc(r.source)+(r.ignored?" (ігнор.)":"")+'</span><span>'+r.percent+'%</span></div>';
         }).join("")+
         '<div class="flex justify-between text-11 mt-1 pt-1" style="font-family:\'Inter\',sans-serif;color:'+TEXT_DARK+';border-top:1px dashed '+GOLD+'55"><b>Середнє</b><b>'+fmt1(g.avg)+'%</b></div>'+
-        '<div class="text-11 mt-1_5" style="font-family:\'Inter\',sans-serif;color:'+TEXT_MUTE+'">Довіра рахується по <b>'+g.independentSources.length+'</b> різноназваних джерелах: '+esc(g.independentSources.join(", "))+'. Однаково названі рахуються як одне.</div></div>';
+        '<div class="text-11 mt-1_5" style="font-family:\'Inter\',sans-serif;color:'+TEXT_MUTE+'">Довіра рахується по <b>'+g.independentSources.length+'</b> різноназваних джерелах: '+esc(g.independentSources.join(", "))+'. Однаково названі рахуються як одне.</div>'+
+        '<div class="mt-2 pt-2" style="border-top:1px dashed '+GOLD+'55">'+
+        '<div class="flex items-center gap-1_5 mb-1">'+icon("help-circle",{size:12,color:WINE})+'<span style="color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="text-11 font-medium">Що означає ця категорія</span></div>'+
+        '<div class="text-11" style="font-family:\'Source Serif 4\',serif;color:'+TEXT_MUTE+';line-height:1.5">'+
+        (glossaryDef ? esc(glossaryDef) : "Немає усталеного наукового визначення для цієї назви — ймовірно, це специфічний термін конкретного калькулятора або лабораторії, а не загальновживана популяційна категорія.") +
+        '</div></div></div>';
     }
     return '<div style="border-top:1px solid '+GOLD+'33" class="pt-3">'+
       '<div class="flex items-center justify-between flex-wrap gap-1_5">'+
