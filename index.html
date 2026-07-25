@@ -38,10 +38,10 @@ a{color:inherit;}
 .space-y-2>*+*{margin-top:.5rem;} .space-y-3>*+*{margin-top:.75rem;} .space-y-5>*+*{margin-top:1.25rem;}
 .grid-2{grid-template-columns:repeat(2,minmax(0,1fr));}
 .grid-4{grid-template-columns:repeat(2,minmax(0,1fr));}
-.grid-row{grid-template-columns:28px 1fr 1fr 70px 28px;}
+.grid-row{grid-template-columns:28px 1.05fr 1.05fr 1fr 58px 28px;}
 .grid-match{grid-template-columns:1fr 1fr 70px 90px 1fr 32px;}
-.w-full{width:100%;} .w-2{width:.5rem;} .w-10{width:2.5rem;} .w-12{width:3rem;}
-.w-28{width:7rem;} .w-32{width:8rem;} .h-2{height:.5rem;} .h-2_5{height:.625rem;}
+.w-full{width:100%;} .w-2{width:.5rem;} .w-10{width:2.5rem;} .w-12{width:3rem;} .w-14{width:3.5rem;display:inline-block;}
+.w-28{width:7rem;display:inline-block;} .w-32{width:8rem;display:inline-block;} .w-36{width:9rem;display:inline-block;} .h-2{height:.5rem;} .h-2_5{height:.625rem;}
 .h-3{height:.75rem;} .h-4{height:1rem;} .h-full{height:100%;}
 .rounded-full{border-radius:9999px;} .rounded-sm{border-radius:var(--radius-sm);}
 .overflow-hidden{overflow:hidden;} .overflow-y-auto{overflow-y:auto;}
@@ -94,9 +94,18 @@ button:active{transform:scale(0.97);}
 .donut-seg{transition:stroke-dasharray .6s ease, stroke-dashoffset .6s ease;}
 input,textarea,select{transition:border-color .15s ease, box-shadow .15s ease;}
 input:focus,textarea:focus,select:focus{box-shadow:0 0 0 2px rgba(173,138,78,.35);}
-.bar-fill{transition:width .5s ease;}
+.bar-fill{transition:width .5s ease;border-radius:0;}
 input[type=text],input[type=number],input[type=password],textarea,select{border:none;}
 
+@media(max-width:639px){
+  .grid-row{grid-template-columns:28px 1fr 58px 28px; }
+  .grid-row > :nth-child(3),
+  .grid-row > :nth-child(4){grid-column:2 / -2;}
+  .grid-match{grid-template-columns:1fr 70px 32px;}
+  .grid-match > :nth-child(2),
+  .grid-match > :nth-child(4),
+  .grid-match > :nth-child(5){grid-column:1 / -1;}
+}
 @media(min-width:640px){
   .sm-grid-4{grid-template-columns:repeat(4,minmax(0,1fr));}
   .sm-p-6{padding:1.25rem 1.5rem;}
@@ -118,6 +127,80 @@ var INK="#F1E9DC", PAPER="#FBF7ED", PAPER_DIM="#F1E9D9", NAVY="#20242E", NAVY_DE
 var BAR_COLORS=[WINE,GOLD,"#5B6B8C","#7A8B5E","#A65B4A","#4F7C8C","#8C6A9B","#B0793C"];
 var LOGO_DATA_URI="data:image/png;base64,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";
 var LEVELS={ancient:"Ancient (давні популяції)",modern:"Modern (сучасні етноси)",oracle:"Oracle (GEDmatch)",estimate:"Ethnicity estimate"};
+
+/* EN auto-suggestions for common ethnicity labels (ukr/eng pairs) */
+var EN_SUGGEST=[
+  {kw:["україн","ukrain"],en:"Ukrainians"},
+  {kw:["польщ","polish","poland"],en:"Polish"},
+  {kw:["німець","german"],en:"German"},
+  {kw:["білорус","belarus"],en:"Belarusian"},
+  {kw:["росі","russia"],en:"Russian"},
+  {kw:["балт","baltic"],en:"Baltic"},
+  {kw:["лит","lithuania"],en:"Lithuanian"},
+  {kw:["латві","latvia"],en:"Latvian"},
+  {kw:["естон","estonia"],en:"Estonian"},
+  {kw:["скандинав","scandinavia"],en:"Scandinavian"},
+  {kw:["норве","norweg"],en:"Norwegian"},
+  {kw:["швед","swed"],en:"Swedish"},
+  {kw:["данськ","danish","denmark"],en:"Danish"},
+  {kw:["фін","finn"],en:"Finnish"},
+  {kw:["ірланд","irish","ireland"],en:"Irish"},
+  {kw:["шотланд","scot"],en:"Scottish"},
+  {kw:["англі","english","british","great britain"],en:"English / British"},
+  {kw:["франц","french","france"],en:"French"},
+  {kw:["італ","italia","italy"],en:"Italian"},
+  {kw:["іспан","spain","iberia","spanish"],en:"Spanish / Iberian"},
+  {kw:["португал","portug"],en:"Portuguese"},
+  {kw:["грець","greek","greece"],en:"Greek"},
+  {kw:["турець","turk","anatolia"],en:"Turkish / Anatolian"},
+  {kw:["угор","hungar"],en:"Hungarian"},
+  {kw:["румун","roman","romania"],en:"Romanian"},
+  {kw:["чеськ","czech"],en:"Czech"},
+  {kw:["словаць","slovak"],en:"Slovak"},
+  {kw:["хорват","croat"],en:"Croatian"},
+  {kw:["серб","serb"],en:"Serbian"},
+  {kw:["балка","balkan"],en:"Balkan"},
+  {kw:["кавказ","caucas"],en:"Caucasus"},
+  {kw:["євре","jewish","ashkenazi"],en:"Ashkenazi Jewish"},
+  {kw:["сефард","sephard"],en:"Sephardic Jewish"},
+  {kw:["середземн","mediterranean"],en:"Mediterranean"},
+  {kw:["близьк.*схід","middle east","levant"],en:"Middle Eastern / Levantine"},
+  {kw:["північн.*африк","north africa","berber","maghreb"],en:"North African"},
+  {kw:["південн.*азі","south asia","india","indian","harappa"],en:"South Asian"},
+  {kw:["східн.*азі","east asia","chinese","japan","korea"],en:"East Asian"},
+  {kw:["мислив","hunter gatherer","hunter-gatherer","whg","ehg"],en:"Hunter-Gatherer"},
+  {kw:["фермер","farmer","neolithic"],en:"Early Farmer / Neolithic"},
+  {kw:["степ","steppe","yamnaya"],en:"Steppe / Yamnaya"},
+  {kw:["бронз","bronze age"],en:"Bronze Age"},
+  {kw:["давн","ancient"],en:"Ancient"}
+];
+function suggestEn(name){
+  if(!name) return "";
+  var n=String(name).toLowerCase();
+  for(var i=0;i<EN_SUGGEST.length;i++){
+    var entry=EN_SUGGEST[i];
+    for(var j=0;j<entry.kw.length;j++){
+      if(n.indexOf(entry.kw[j])>=0) return entry.en;
+    }
+  }
+  // if label is already mostly Latin letters, treat as English
+  var latin=0, total=0;
+  for(var k=0;k<n.length;k++){
+    var c=n.charCodeAt(k);
+    if((c>=97&&c<=122)||c===32||c===45){ latin++; total++; }
+    else if(c>32) total++;
+  }
+  if(total>2 && latin/total>0.75) return name.trim();
+  return "";
+}
+function bilingualLabel(name, en){
+  var emoji=getGroupEmoji(name);
+  var base=(emoji?emoji+" ":"")+esc(name);
+  var enTrim=en ? String(en).trim() : "";
+  if(enTrim && enTrim.toLowerCase()!==String(name||"").trim().toLowerCase())
+    return base+' <span style="color:#6B5F4C;font-weight:400;opacity:.85">/ '+esc(enTrim)+'</span>';
+  return base;
+}
 
 /* ---------- helpers ---------- */
 function uid(){return Math.random().toString(36).slice(2,10);}
@@ -145,12 +228,17 @@ function extractRows(text){
   var seen=new Set(), out=[];
   rows.forEach(function(r){
     var k=r.label.toLowerCase()+"|"+r.percent;
-    if(!seen.has(k)){seen.add(k); out.push({id:uid(),label:r.label,canonical:r.label,percent:r.percent,ignored:false});}
+    if(!seen.has(k)){
+      seen.add(k);
+      var en=suggestEn(r.label);
+      out.push({id:uid(),label:r.label,canonical:r.label,en:en,percent:r.percent,ignored:false});
+    }
   });
   return out;
 }
 function stats(values){
   var n=values.length;
+  if(n===0) return {avg:0,median:0,std:0,min:0,max:0,n:0};
   var avg=values.reduce(function(a,b){return a+b;},0)/n;
   var sorted=values.slice().sort(function(a,b){return a-b;});
   var median = n%2 ? sorted[(n-1)/2] : (sorted[n/2-1]+sorted[n/2])/2;
@@ -165,13 +253,17 @@ function confidenceStars(n,avg,std){
   return Math.max(1,Math.min(5,stars));
 }
 function isConflict(values){
+  if(!values || values.length<2) return false;
   var min=Math.min.apply(null,values), max=Math.max.apply(null,values);
-  return (max-min>10) || (min===0 && max>5);
+  // only flag meaningful spreads; ignore tiny absolute gaps when both are small
+  if(max-min<=8) return false;
+  if(min===0 && max>8) return true;
+  return (max-min>15);
 }
 function supportLevel(n){
-  if(n>=4) return {emoji:"🟢",label:"Сильна підтримка",color:GREEN};
-  if(n>=2) return {emoji:"🟡",label:"Помірна підтримка",color:"#B0973F"};
-  return {emoji:"🔴",label:"Попередній сигнал",color:WINE};
+  if(n>=4) return {emoji:"🟢",label:t("support_strong"),color:GREEN};
+  if(n>=2) return {emoji:"🟡",label:t("support_moderate"),color:"#B0973F"};
+  return {emoji:"🔴",label:t("support_weak"),color:WINE};
 }
 function similarity(a,b){
   var x=a.toLowerCase().trim(), y=b.toLowerCase().trim();
@@ -245,8 +337,8 @@ function importBackup(data){
   if(Array.isArray(data.ancestors)) S.ancestors=S.ancestors.concat(data.ancestors);
   if(Array.isArray(data.versions)) S.versions=S.versions.concat(data.versions);
   if(Array.isArray(data.decisionLog)) S.decisionLog=S.decisionLog.concat(data.decisionLog);
-  logDecision("Імпортовано бекап JSON ("+n+" джерел)");
-  S.importNotice="Імпортовано "+n+" джерел із бекапу."; S.importError=false;
+  logDecision("log_import_backup",{n:n});
+  S.importNotice=t("import_backup_ok",{n:n}); S.importError=false;
   scheduleSave(); render();
 }
 function handleFileImport(file){
@@ -259,7 +351,7 @@ function handleFileImport(file){
       try{
         var data=JSON.parse(text);
         if(data && Array.isArray(data.sources)){
-          if(window.confirm("Це схоже на повний бекап (JSON-експорт). Додати всі його джерела/збіги/версії до поточних даних?")) importBackup(data);
+          if(window.confirm(t("confirm_import_backup"))) importBackup(data);
           return;
         }
         if(Array.isArray(data)){
@@ -267,28 +359,28 @@ function handleFileImport(file){
           if(lines){
             S.newSourceText=(S.newSourceText?S.newSourceText+"\n":"")+lines;
             if(!S.newSourceName) S.newSourceName=file.name.replace(/\.json$/i,"");
-            S.importNotice="Файл розпізнано, перевір текст нижче і натисни «Розпізнати й додати»."; S.importError=false;
+            S.importNotice=t("import_file_ok"); S.importError=false;
             render(); return;
           }
         }
-        S.importNotice="Не впізнав структуру цього JSON — очікую масив {label, percent} або повний бекап з експорту цього ж інструменту.";
+        S.importNotice=t("import_json_unknown");
         S.importError=true; render();
-      }catch(err){ S.importNotice="Не вдалось прочитати JSON: "+err.message; S.importError=true; render(); }
+      }catch(err){ S.importNotice=t("import_json_error",{m:err.message}); S.importError=true; render(); }
     } else if(ext==="csv"){
       var csvLines=csvToLines(text);
-      if(!csvLines){ S.importNotice="Не знайшов у CSV жодного рядка з відсотком (0–100)."; S.importError=true; render(); return; }
+      if(!csvLines){ S.importNotice=t("import_csv_empty"); S.importError=true; render(); return; }
       S.newSourceText=(S.newSourceText?S.newSourceText+"\n":"")+csvLines;
       if(!S.newSourceName) S.newSourceName=file.name.replace(/\.csv$/i,"");
-      S.importNotice="CSV розпізнано, перевір текст нижче і натисни «Розпізнати й додати»."; S.importError=false;
+      S.importNotice=t("import_file_ok"); S.importError=false;
       render();
     } else {
       S.newSourceText=(S.newSourceText?S.newSourceText+"\n":"")+text;
       if(!S.newSourceName) S.newSourceName=file.name.replace(/\.[^.]+$/,"");
-      S.importNotice="Текстовий файл завантажено в поле нижче."; S.importError=false;
+      S.importNotice=t("import_txt_ok"); S.importError=false;
       render();
     }
   };
-  reader.onerror=function(){ S.importNotice="Не вдалось прочитати файл."; S.importError=true; render(); };
+  reader.onerror=function(){ S.importNotice=t("import_file_error"); S.importError=true; render(); };
   reader.readAsText(file,"UTF-8");
 }
 
@@ -406,12 +498,427 @@ function icon(name,opts){
   return '<svg '+attrs+'>'+body+'</svg>';
 }
 
+/* ---------- i18n ---------- */
+var I18N = {
+  uk: {
+    brand_sub: "· особистий реєстр походження",
+    mode_simple: "Простий",
+    mode_scientific: "Науковий",
+    title: "Зведення етнічних джерел",
+    subtitle: "Звід цифр, які вже видали GEDmatch, MyHeritage, FTDNA чи інші бази — усереднення, медіана, довіра і конфлікти між джерелами.",
+    sources_one: "джерело", sources_many: "джерел",
+    groups_one: "група", groups_many: "груп",
+    avg_trust: "середня довіра",
+    updated: "оновлено",
+    warning: "Ніяких нових наукових обчислень — лише усереднення того, що вже видали лабораторії. AI-коментар (нижче) теж не вигадує нових цифр, а лише описує патерни в тому, що вже є.",
+    add_source: "Додати джерело",
+    try_demo: "спробувати на прикладі (демо-дані)",
+    demo_source_name: "Приклад (демо)",
+    source_name_ph: "Назва джерела (напр. MyHeritage, GEDmatch Oracle, FTDNA myOrigins)",
+    report_date: "Дата звіту (необов'язково) — щоб бачити, чи дані ще актуальні",
+    level_ancient: "Ancient (давні популяції)",
+    level_modern: "Modern (сучасні етноси)",
+    level_oracle: "Oracle (GEDmatch)",
+    level_estimate: "Ethnicity estimate",
+    upload_file: "завантажити файл (.csv, .txt, .json)",
+    paste_text_ph: "Встав сюди скопійований текст звіту (з процентами)…",
+    recognize_add: "Розпізнати й додати",
+    view_all_reports: "переглянути всі звіти одразу (не по одному)",
+    hide_all_reports: "сховати всі тексти звітів",
+    tab_all: "Усі рівні",
+    merge_suggest: "Схоже, «{a}» і «{b}» споріднені категорії. Об'єднати?",
+    merge_yes: "Об'єднати",
+    merge_no: "Ні, лишити окремо",
+    found: "Знайдено",
+    group_uk: "Група (укр)",
+    en_col: "EN",
+    active_of: "активних",
+    sum_label: "сума",
+    ignore: "Ігнорувати (лишити в архіві)",
+    unignore: "Врахувати знову",
+    add_row: "рядок вручну",
+    show_full_report: "переглянути повний текст звіту",
+    hide_full_report: "сховати повний текст звіту",
+    archive: "архів",
+    restore: "відновити",
+    purge: "видалити назавжди",
+    aggregated_title: "Усереднено між джерелами",
+    aggregated_hint: "Узгодь назви груп вище, щоб вони склались правильно. Довіра ★ враховує кількість незалежних джерел і те, наскільки вони узгоджені.",
+    sort_by: "сортувати:",
+    sort_percent: "за %",
+    sort_name: "за назвою",
+    sort_stars: "за довірою",
+    search_group: "Пошук групи…",
+    nothing_found: "Нічого не знайдено за запитом «{q}».",
+    signal_strength: "Сила сигналу (замість географічної карти — назви груп не завжди однозначно мапляться на країни)",
+    clusters_title: "Кластери (твоє групування)",
+    conflict: "конфлікт",
+    new_badge: "нове",
+    why_title: "Звідки взялось {pct}%",
+    trust_note: "Довіра рахується по {n} різноназваних джерелах: {list}. Однаково названі рахуються як одне.",
+    what_means: "Що означає ця категорія",
+    no_glossary: "Немає усталеного наукового визначення для цієї назви — ймовірно, це специфічний термін конкретного калькулятора або лабораторії, а не загальновживана популяційна категорія.",
+    cluster_ph: "об'єднати в кластер (напр. Mediterranean)…",
+    notes_ph: "твої нотатки (не автогенеровані)…",
+    version_btn: "версія (W{n})",
+    export_json: "JSON",
+    export_csv: "CSV",
+    export_pdf: "PDF (друк)",
+    export_png: "PNG (для соцмереж)",
+    ai_key_ph: "Anthropic API-ключ для AI-коментаря (необов'язково, sk-ant-…, лише в пам'яті сесії)",
+    ai_btn: "AI-коментар (обережний, без нових цифр)",
+    ai_loading: "аналізую…",
+    agreement_title: "Індекс узгодженості",
+    agreement_hint: "Не \"це правда\", а наскільки різні джерела погоджуються між собою по кожній групі.",
+    decision_log: "Журнал рішень",
+    clear_log: "очистити журнал",
+    clear_log_confirm: "натисни ще раз, щоб підтвердити",
+    versions_title: "Історія версій",
+    version_a: "Версія A…",
+    version_b: "Версія B…",
+    no_change: "без змін",
+    n_a: "н/д",
+    ancestors_title: "Відомі пращури (документально)",
+    ancestors_hint: "Те, що ти знаєш з документів/родини — просто лежить поруч із ДНК-групами. Жодного автоматичного зіставлення чи вердикту — тільки твоя нотатка, зведена в одному місці.",
+    ancestor_name_ph: "Ім'я пращура",
+    ancestor_nation_ph: "Задокументована нація",
+    ancestor_gen_ph: "Покоління (напр. прадід, ~1890)",
+    ancestor_note_ph: "Звідки знаєш (метрика, спогади…)",
+    add_ancestor: "додати пращура",
+    matches_title: "Збіги з родичами (сМ)",
+    sort_cm: "сортувати за сМ",
+    bulk_match_ph: "Встав список одразу, по одному на рядок, напр.:\nІван Петренко — 245 cM — 2nd cousin, лінія Ковальських\nМарія С. 89 сМ ймовірно 3rd cousin",
+    recognize_list: "розпізнати й додати список",
+    relatives_from: "Where relatives are from (nation field)",
+    reset_filter: "✕ скинути фільтр «{n}»",
+    col_name: "Ім'я / нік",
+    col_source: "Джерело",
+    col_cm: "сМ",
+    col_nation: "Нація",
+    col_note: "Примітка (лінія)",
+    nation_ph: "напр. Норвегія",
+    add_match: "додати збіг",
+    save_local: "дані зберігаються локально в цьому браузері (localStorage)",
+    saving: "збереження…",
+    backup_never: "бекап (JSON) ще не робився",
+    backup_today: "бекап робився сьогодні",
+    backup_days: "останній бекап {d} {unit} тому",
+    day_one: "день", day_many: "днів",
+    backup_suggest: " — варто зробити JSON-експорт",
+    deleted: "Видалено {label}.",
+    undo: "Скасувати",
+    support_strong: "Сильна підтримка",
+    support_moderate: "Помірна підтримка",
+    support_weak: "Попередній сигнал",
+    median: "Медіана",
+    std: "Std",
+    range: "Діапазон",
+    agreement: "Узгодженість",
+    not_specified: "не вказано",
+    avg: "Середнє",
+    text_not_saved: "(текст не збережено)",
+    data_stale: "дані старші за рік — алгоритми могли оновитись",
+    data_fresh: "звіт відносно свіжий",
+    sum_hint: "Сума активних % у цьому джерелі — має бути ~100%",
+    to_archive: "Відправити в архів",
+        english_ph: "English…",
+    stars_title: "Довіра {n}/5 — за кількістю різноназваних джерел ({count}); однакові назви рахуються як одне",
+    toggle_source: "Згорнути або розгорнути джерело",
+    row_label: "рядок «{name}»",
+    ancestor_label: "пращура «{name}»",
+    match_label: "збіг «{name}»",
+    unnamed_row: "без назви",
+    unnamed_match: "без імені",
+    ai_need_key: "Щоб увімкнути AI-коментар у цьому автономному файлі, встав свій Anthropic API-ключ у поле вище (він нікуди не зберігається, лише в пам'яті поки відкрита сторінка).",
+    ai_prompt: "Ось зведені дані по групах етнічного походження з кількох ДНК-баз (JSON нижче). Твоя задача — коротко, 3-5 речень, українською, описати ТІЛЬКИ патерни, які прямо видно в цих цифрах: які групи підтверджені кількома незалежними джерелами, де є суперечності (conflict: true), де мало даних. НЕ вигадуй нову генетичну інформацію, НЕ роби висновків про походження людини поза цими цифрами, НЕ додавай нових відсотків. Пиши обережно, як спостереження над даними, не як експертний висновок.",
+    ai_error_api: "Помилка API: {m}",
+    ai_error_unknown: "невідома",
+    ai_no_response: "Не вдалося отримати відповідь.",
+    ai_error_request: "Помилка запиту (можливо, CORS блокує прямий виклик з браузера). Спробуй ще раз або онови ключ.",
+    conflict_title: "Джерела суперечать одне одному",
+    remove_ancestor_aria: "Видалити пращура",
+    remove_match_aria: "Видалити збіг",
+    dismiss: "Закрити",
+    confirm_import_backup: "Це схоже на повний бекап (JSON-експорт). Додати всі його джерела/збіги/версії до поточних даних?",
+    confirm_purge: "Видалити це джерело назавжди з архіву? Це не можна скасувати.",
+    import_backup_ok: "Імпортовано {n} джерел із бекапу.",
+    import_file_ok: "Файл розпізнано, перевір текст нижче і натисни «Розпізнати й додати».",
+    import_json_unknown: "Не впізнав структуру цього JSON — очікую масив {label, percent} або повний бекап з експорту цього ж інструменту.",
+    import_json_error: "Не вдалось прочитати JSON: {m}",
+    import_csv_empty: "Не знайшов у CSV жодного рядка з відсотком (0–100).",
+    import_txt_ok: "Текстовий файл завантажено в поле нижче.",
+    import_file_error: "Не вдалось прочитати файл.",
+    demo_notice: "Це демо-дані для прикладу (проценти, пращури й збіги з родичами) — видали кнопкою кошика біля назви джерела/пращура/збігу, коли будеш готовий(а) додати свої.",
+    dup_source_warn: "Увага: у тебе вже є джерело з назвою «{name}». Для довіри (★) однаково названі джерела рахуються як ОДНЕ — якщо це окремий тест, перейменуй один із них (додай дату чи номер кіта).",
+    log_import_backup: "Імпортовано бекап JSON ({n} джерел)",
+    yes: "так",
+    no: "ні",
+    csv_header: "Група,EN,Середнє %,Медіана %,Std,Мін,Макс,Джерел,Конфлікт",
+    pdf_title: "Генетичний паспорт",
+    pdf_subtitle: "Особистий реєстр походження",
+    pdf_composed: "складено",
+    pdf_sources_n: "джерел: {n}",
+    pdf_warn: "Ніяких нових наукових обчислень — лише усереднення того, що вже видали лабораторії ({sources}). Це не медичний чи юридичний документ.",
+    pdf_groups_h: "Зведені групи походження",
+    pdf_sources_h: "Використані джерела",
+    pdf_agreement_h: "Індекс узгодженості між джерелами",
+    pdf_footer: "Сформовано автоматично · HelixOne · VolynMossad · особистий генеалогічний архів",
+    pdf_th_group: "Група",
+    pdf_th_avg: "Середнє",
+    pdf_th_sources: "Джерел",
+    pdf_th_strength: "Сила",
+    pdf_need_data: "Спершу додай хоча б одне джерело з розпізнаними цифрами.",
+    pdf_popup_blocked: "Браузер заблокував нове вікно для друку. Дозволь спливаючі вікна для цієї сторінки й спробуй ще раз.",
+    png_sub: "особистий реєстр походження",
+    png_title: "Зведення етнічного походження",
+    storage_full: "localStorage переповнено — зроби JSON-експорт і видали зайві джерела.",
+    log_archived: "Джерело «{name}» відправлено в архів",
+    log_restored: "Джерело «{name}» відновлено з архіву",
+    log_cluster: "«{name}» об'єднано в кластер «{cluster}»",
+    log_merged: "«{a}» об'єднано користувачем із «{b}»",
+    png_footer_bit: "особистий генеалогічний архів",
+    delta_since: "Зміна відколи збережено",
+    why_btn_title: "Чому саме таке число?"
+
+  },
+  en: {
+    brand_sub: "· personal ancestry registry",
+    mode_simple: "Simple",
+    mode_scientific: "Scientific",
+    title: "Ethnic sources summary",
+    subtitle: "A ledger of numbers already produced by GEDmatch, MyHeritage, FTDNA and other databases — averages, medians, trust scores and conflicts between sources.",
+    sources_one: "source", sources_many: "sources",
+    groups_one: "group", groups_many: "groups",
+    avg_trust: "avg trust",
+    updated: "updated",
+    warning: "No new scientific calculations — only averaging of what the labs already reported. The AI comment (below) also invents no new numbers; it only describes patterns already present in the data.",
+    add_source: "Add source",
+    try_demo: "try with example (demo data)",
+    demo_source_name: "Example (demo)",
+    source_name_ph: "Source name (e.g. MyHeritage, GEDmatch Oracle, FTDNA myOrigins)",
+    report_date: "Report date (optional) — to see whether the data is still current",
+    level_ancient: "Ancient (ancient populations)",
+    level_modern: "Modern (modern ethnicities)",
+    level_oracle: "Oracle (GEDmatch)",
+    level_estimate: "Ethnicity estimate",
+    upload_file: "upload file (.csv, .txt, .json)",
+    paste_text_ph: "Paste the copied report text (with percentages)…",
+    recognize_add: "Parse & add",
+    view_all_reports: "view all reports at once",
+    hide_all_reports: "hide all report texts",
+    tab_all: "All levels",
+    merge_suggest: "Looks like “{a}” and “{b}” are related categories. Merge?",
+    merge_yes: "Merge",
+    merge_no: "No, keep separate",
+    found: "Found",
+    group_uk: "Group (local)",
+    en_col: "EN",
+    active_of: "active",
+    sum_label: "sum",
+    ignore: "Ignore (keep in archive)",
+    unignore: "Include again",
+    add_row: "add row manually",
+    show_full_report: "view full report text",
+    hide_full_report: "hide full report text",
+    archive: "archive",
+    restore: "restore",
+    purge: "delete forever",
+    aggregated_title: "Averaged across sources",
+    aggregated_hint: "Align group names above so they fold correctly. Trust ★ accounts for the number of independent sources and how consistent they are.",
+    sort_by: "sort:",
+    sort_percent: "by %",
+    sort_name: "by name",
+    sort_stars: "by trust",
+    search_group: "Search group…",
+    nothing_found: "Nothing found for “{q}”.",
+    signal_strength: "Signal strength (instead of a geographic map — group names do not always map cleanly to countries)",
+    clusters_title: "Clusters (your grouping)",
+    conflict: "conflict",
+    new_badge: "new",
+    why_title: "Where the {pct}% comes from",
+    trust_note: "Trust is counted from {n} distinct source names: {list}. Identically named sources count as one.",
+    what_means: "What this category means",
+    no_glossary: "No established scientific definition for this label — likely a calculator- or lab-specific term, not a standard population category.",
+    cluster_ph: "merge into a cluster (e.g. Mediterranean)…",
+    notes_ph: "your notes (not auto-generated)…",
+    version_btn: "version (W{n})",
+    export_json: "JSON",
+    export_csv: "CSV",
+    export_pdf: "PDF (print)",
+    export_png: "PNG (for social)",
+    ai_key_ph: "Anthropic API key for AI comment (optional, sk-ant-…, session memory only)",
+    ai_btn: "AI comment (cautious, no new numbers)",
+    ai_loading: "analysing…",
+    agreement_title: "Agreement index",
+    agreement_hint: "Not “this is true”, but how much different sources agree on each group.",
+    decision_log: "Decision log",
+    clear_log: "clear log",
+    clear_log_confirm: "click again to confirm",
+    versions_title: "Version history",
+    version_a: "Version A…",
+    version_b: "Version B…",
+    no_change: "no change",
+    n_a: "n/a",
+    ancestors_title: "Known ancestors (documented)",
+    ancestors_hint: "What you know from documents/family — simply sits next to the DNA groups. No automatic matching or verdict — just your note, in one place.",
+    ancestor_name_ph: "Ancestor name",
+    ancestor_nation_ph: "Documented nation",
+    ancestor_gen_ph: "Generation (e.g. great-grandfather, ~1890)",
+    ancestor_note_ph: "How you know (records, memories…)",
+    add_ancestor: "add ancestor",
+    matches_title: "Relative matches (cM)",
+    sort_cm: "sort by cM",
+    bulk_match_ph: "Paste a list at once, one per line, e.g.:\nIvan Petrenko — 245 cM — 2nd cousin, Kovalsky line\nMaria S. 89 cM likely 3rd cousin",
+    recognize_list: "parse & add list",
+    relatives_from: "Where relatives are from (nation field)",
+    reset_filter: "✕ clear filter “{n}”",
+    col_name: "Name / nick",
+    col_source: "Source",
+    col_cm: "cM",
+    col_nation: "Nation",
+    col_note: "Note (line)",
+    nation_ph: "e.g. Norway",
+    add_match: "add match",
+    save_local: "data is stored locally in this browser (localStorage)",
+    saving: "saving…",
+    backup_never: "JSON backup has never been made",
+    backup_today: "backup was made today",
+    backup_days: "last backup {d} {unit} ago",
+    day_one: "day", day_many: "days",
+    backup_suggest: " — worth doing a JSON export",
+    deleted: "Deleted {label}.",
+    undo: "Undo",
+    support_strong: "Strong support",
+    support_moderate: "Moderate support",
+    support_weak: "Preliminary signal",
+    median: "Median",
+    std: "Std",
+    range: "Range",
+    agreement: "Agreement",
+    not_specified: "not specified",
+    avg: "Average",
+    text_not_saved: "(text not saved)",
+    data_stale: "data older than a year — algorithms may have updated",
+    data_fresh: "report is relatively fresh",
+    sum_hint: "Sum of active % in this source — should be ~100%",
+    to_archive: "Move to archive",
+        english_ph: "English…",
+    stars_title: "Trust {n}/5 — based on distinct source names ({count}); identical names count as one",
+    toggle_source: "Collapse or expand source",
+    row_label: "row «{name}»",
+    ancestor_label: "ancestor «{name}»",
+    match_label: "match «{name}»",
+    unnamed_row: "unnamed",
+    unnamed_match: "unnamed",
+    ai_need_key: "To enable the AI comment in this standalone file, paste your Anthropic API key in the field above (it is never stored anywhere, only kept in memory while this page is open).",
+    ai_prompt: "Here is summarized ethnic origin data from several DNA databases (JSON below). Your task is to briefly, in 3-5 sentences, in English, describe ONLY the patterns directly visible in these numbers: which groups are confirmed by several independent sources, where there are contradictions (conflict: true), where there is little data. DO NOT invent new genetic information, DO NOT draw conclusions about the person's ancestry beyond these numbers, DO NOT add new percentages. Write cautiously, as an observation about the data, not as an expert conclusion.",
+    ai_error_api: "API error: {m}",
+    ai_error_unknown: "unknown",
+    ai_no_response: "Could not get a response.",
+    ai_error_request: "Request error (CORS may be blocking a direct browser call). Try again or refresh your key.",
+    conflict_title: "Sources disagree with each other",
+    remove_ancestor_aria: "Remove ancestor",
+    remove_match_aria: "Remove match",
+    dismiss: "Dismiss",
+    confirm_import_backup: "This looks like a full backup (JSON export). Add all its sources/matches/versions to the current data?",
+    confirm_purge: "Permanently delete this source from the archive? This cannot be undone.",
+    import_backup_ok: "Imported {n} sources from backup.",
+    import_file_ok: "File recognized — review the text below and press “Recognize & add”.",
+    import_json_unknown: "Unrecognized JSON structure — expected an array of {label, percent} or a full backup from this tool.",
+    import_json_error: "Could not read JSON: {m}",
+    import_csv_empty: "No rows with a percentage (0–100) found in the CSV.",
+    import_txt_ok: "Text file loaded into the field below.",
+    import_file_error: "Could not read the file.",
+    demo_notice: "These are demo data (percentages, ancestors and relative matches) — remove with the trash button next to the source/ancestor/match name when you are ready to add your own.",
+    dup_source_warn: "Note: you already have a source named “{name}”. For trust (★), identically named sources count as ONE — if this is a separate test, rename one (add a date or kit number).",
+    log_import_backup: "Imported JSON backup ({n} sources)",
+    yes: "yes",
+    no: "no",
+    csv_header: "Group,EN,Average %,Median %,Std,Min,Max,Sources,Conflict",
+    pdf_title: "Genetic passport",
+    pdf_subtitle: "Personal ancestry register",
+    pdf_composed: "compiled",
+    pdf_sources_n: "sources: {n}",
+    pdf_warn: "No new scientific calculations — only averaging what labs already reported ({sources}). This is not a medical or legal document.",
+    pdf_groups_h: "Aggregated ancestry groups",
+    pdf_sources_h: "Sources used",
+    pdf_agreement_h: "Cross-source agreement index",
+    pdf_footer: "Generated automatically · HelixOne · VolynMossad · personal genealogical archive",
+    pdf_th_group: "Group",
+    pdf_th_avg: "Average",
+    pdf_th_sources: "Sources",
+    pdf_th_strength: "Strength",
+    pdf_need_data: "Add at least one source with recognized percentages first.",
+    pdf_popup_blocked: "The browser blocked the print window. Allow pop-ups for this page and try again.",
+    png_sub: "personal ancestry register",
+    png_title: "Ethnicity sources summary",
+        storage_full: "localStorage is full — export JSON and remove some sources.",
+    log_archived: "Source “{name}” moved to archive",
+    log_restored: "Source “{name}” restored from archive",
+    log_cluster: "“{name}” assigned to cluster “{cluster}”",
+    log_merged: "“{a}” merged by user with “{b}”",
+    png_footer_bit: "personal genealogical archive",
+    delta_since: "Change since saved",
+    why_btn_title: "Why this number?"
+
+  }
+};
+function t(key, vars){
+  var lang = (typeof S!=="undefined" && S && S.lang) ? S.lang : "uk";
+  var dict = I18N[lang] || I18N.uk;
+  var s = (dict && dict[key]) || (I18N.uk && I18N.uk[key]) || key;
+  if(vars){
+    Object.keys(vars).forEach(function(k){
+      s = s.replace(new RegExp("\\{"+k+"\\}","g"), vars[k]);
+    });
+  }
+  return s;
+}
+
+function displaySourceName(name){
+  if(!name) return "";
+  var n=String(name).trim();
+  if(n==="Приклад (демо)" || n==="Example (demo)") return t("demo_source_name");
+  return n;
+}
+
+var DEMO_I18N={
+  uk:{
+    anc1:{name:"Іван Ковальський", nation:"Ukrainian", generation:"прадід, ~1895", note:"метрична книга церкви с. Веселе"},
+    anc2:{name:"Ганна Войцеховська", nation:"Polish", generation:"прабабця, ~1901", note:"сімейні спогади, шлюбний запис"},
+    anc3:{name:"Мойше Рабінович", nation:"Jewish Ashkenazi", generation:"прапрадід, ~1870", note:"архів синагоги, переказ родини"},
+    m1:{name:"Іван Петренко", cm:"245", nation:"Ukrainian", note:"2nd cousin, лінія Ковальських"},
+    m2:{name:"Марія С.", cm:"89", nation:"Polish", note:"ймовірно 3rd cousin"},
+    m3:{name:"David Rabin", cm:"34", nation:"Jewish Ashkenazi", note:"4th cousin, лінія Рабіновичів"}
+  },
+  en:{
+    anc1:{name:"Ivan Kovalskyi", nation:"Ukrainian", generation:"great-grandfather, ~1895", note:"parish register, Vesele village church"},
+    anc2:{name:"Hanna Wojciechowska", nation:"Polish", generation:"great-grandmother, ~1901", note:"family memories, marriage record"},
+    anc3:{name:"Moishe Rabinovich", nation:"Jewish Ashkenazi", generation:"great-great-grandfather, ~1870", note:"synagogue archive, family oral history"},
+    m1:{name:"Ivan Petrenko", cm:"245", nation:"Ukrainian", note:"2nd cousin, Kovalsky line"},
+    m2:{name:"Maria S.", cm:"89", nation:"Polish", note:"likely 3rd cousin"},
+    m3:{name:"David Rabin", cm:"34", nation:"Jewish Ashkenazi", note:"4th cousin, Rabinovich line"}
+  }
+};
+function demoView(item){
+  if(!item || !item.isDemo || !item.demoKey) return item;
+  var lang=(typeof S!=="undefined" && S && S.lang) ? S.lang : "uk";
+  var tr=(DEMO_I18N[lang] && DEMO_I18N[lang][item.demoKey]) || (DEMO_I18N.uk && DEMO_I18N.uk[item.demoKey]);
+  if(!tr) return item;
+  var out={}; for(var k in item){ out[k]=item[k]; }
+  for(var f in tr){ out[f]=tr[f]; }
+  return out;
+}
+function levelLabel(k){
+  return t("level_"+k) || LEVELS[k] || k;
+}
+
 /* ---------- state ---------- */
 var S = {
   sources: [], archivedSources: [], matches: [], clusters: {}, versions: [],
   newSourceName: "", newSourceText: "", newSourceLevel: "modern", newSourceDate: "",
   filterQuery: "",
-  collapsed: {}, loaded: false, saveState: "idle", mode: "simple",
+  collapsed: {}, loaded: false, saveState: "idle", mode: "simple", lang: "uk",
   aiComment: "", aiLoading: false, apiKey: "",
   activeTab: "all", decisionLog: [], dismissedSuggestions: [],
   whyOpen: {}, compareA: "", compareB: "", bulkMatchText: "",
@@ -419,12 +926,13 @@ var S = {
   justAddedId: null, animateNumbersNextRender: false,
   ancestors: [], newAncestorName: "", newAncestorNation: "", newAncestorGeneration: "", newAncestorNote: "",
   matchNationFilter: "", matchSortByCm: false, groupSort: "percent", initialLoadAnimated: false,
-  lastBackupTs: null, undoAction: null, undoTimer: null, confirmClearLog: false, confirmClearLogTimer: null
+  lastBackupTs: null, undoAction: null, undoTimer: null, confirmClearLog: false, confirmClearLogTimer: null,
+  confirmPurgeId: null, confirmPurgeTimer: null
 };
 var saveTimer = null;
 
-function logDecision(desc){
-  S.decisionLog.push({id:uid(), description:desc, ts:new Date().toISOString()});
+function logDecision(key,vars){
+  S.decisionLog.push({id:uid(), key:key, vars:vars||{}, ts:new Date().toISOString()});
 }
 function clearDecisionLog(){
   if(S.decisionLog.length===0) return;
@@ -446,11 +954,17 @@ function scheduleSave(){
   saveTimer=setTimeout(function(){
     try{
       storageSet("dna-etno-data-v2", JSON.stringify({
+        schemaVersion:2,
         sources:S.sources, archivedSources:S.archivedSources, matches:S.matches, clusters:S.clusters, notes:S.notes, ancestors:S.ancestors,
-        versions:S.versions, decisionLog:S.decisionLog, dismissedSuggestions:S.dismissedSuggestions, lastBackupTs:S.lastBackupTs
+        versions:S.versions, decisionLog:S.decisionLog, dismissedSuggestions:S.dismissedSuggestions, lastBackupTs:S.lastBackupTs, lang:S.lang, mode:S.mode
       }));
       S.saveState="saved";
-    }catch(e){ S.saveState="error"; }
+    }catch(e){
+      S.saveState="error";
+      if(e && (e.name==="QuotaExceededError" || e.code===22)){
+        S.importNotice=t("storage_full"); S.importError=true;
+      }
+    }
     renderSaveIndicatorOnly();
   },500);
 }
@@ -461,6 +975,8 @@ function loadInitial(){
       var p=JSON.parse(res.value);
       S.sources=p.sources||[]; S.archivedSources=p.archivedSources||[]; S.matches=p.matches||[]; S.clusters=p.clusters||{}; S.notes=p.notes||{}; S.ancestors=p.ancestors||[];
       S.versions=p.versions||[]; S.decisionLog=p.decisionLog||[]; S.dismissedSuggestions=p.dismissedSuggestions||[]; S.lastBackupTs=p.lastBackupTs||null;
+      if(p.lang==="en"||p.lang==="uk") S.lang=p.lang;
+      if(p.mode==="simple"||p.mode==="scientific") S.mode=p.mode;
     }
   }catch(e){}
   S.loaded=true;
@@ -480,11 +996,13 @@ function getAggregated(){
     src.rows.forEach(function(row){
       var key=(row.canonical||row.label||"").trim().toLowerCase();
       if(!key) return;
-      if(!groups[key]) groups[key]={name:(row.canonical||row.label).trim(), values:[], srcNames:[], raw:[]};
-      groups[key].raw.push({source:src.name, percent:row.percent, ignored:!!row.ignored});
+      if(!groups[key]) groups[key]={name:(row.canonical||row.label).trim(), values:[], srcNames:[], raw:[], enVotes:{}};
+      groups[key].raw.push({source:src.name, percent:row.percent, ignored:!!row.ignored, en:row.en||""});
       if(row.ignored) return;
       groups[key].values.push(row.percent);
       groups[key].srcNames.push(src.name);
+      var en=(row.en||"").trim();
+      if(en) groups[key].enVotes[en]=(groups[key].enVotes[en]||0)+1;
     });
   });
   var out=[];
@@ -493,8 +1011,13 @@ function getAggregated(){
     if(g.values.length===0) return;
     var st=stats(g.values);
     var indep=Array.from(new Set(g.srcNames));
+    var bestEn="", bestCnt=0;
+    Object.keys(g.enVotes).forEach(function(e){
+      if(g.enVotes[e]>bestCnt){ bestCnt=g.enVotes[e]; bestEn=e; }
+    });
+    if(!bestEn) bestEn=suggestEn(g.name);
     out.push({
-      key:key, name:g.name, avg:st.avg, median:st.median, std:st.std, min:st.min, max:st.max, n:st.n,
+      key:key, name:g.name, en:bestEn, avg:st.avg, median:st.median, std:st.std, min:st.min, max:st.max, n:st.n,
       stars:confidenceStars(indep.length, st.avg, st.std),
       independentSources:indep,
       conflict:isConflict(g.values),
@@ -537,9 +1060,25 @@ function getClusterRollup(aggregated){
 function addExampleSource(){
   var newId=uid();
   var exampleText="Ukrainian: 41.2%\nPolish: 17.8%\nJewish Ashkenazi: 11.5%\nBaltic: 8.4%\nScandinavian: 6.1%\nFinnish: 4.9%\nWestern European: 5.3%\nSouth-Central European: 4.8%";
-  S.sources.push({id:newId, name:"Приклад (демо)", level:"modern", date:"", rawText:exampleText, rows:extractRows(exampleText)});
+  S.sources.push({id:newId, name:t("demo_source_name"), level:"modern", date:"", rawText:exampleText, rows:extractRows(exampleText)});
   S.justAddedId=newId; S.animateNumbersNextRender=true;
-  S.importNotice="Це демо-дані для прикладу — видали кнопкою кошика біля назви джерела, коли будеш готовий(а) додати свої."; S.importError=false;
+  S.importNotice=t("demo_notice"); S.importError=false;
+
+  if(S.ancestors.length===0){
+    S.ancestors.push(
+      {id:uid(), isDemo:true, demoKey:"anc1", name:"Іван Ковальський", nation:"Ukrainian", generation:"прадід, ~1895", note:"метрична книга церкви с. Веселе"},
+      {id:uid(), isDemo:true, demoKey:"anc2", name:"Ганна Войцеховська", nation:"Polish", generation:"прабабця, ~1901", note:"сімейні спогади, шлюбний запис"},
+      {id:uid(), isDemo:true, demoKey:"anc3", name:"Мойше Рабінович", nation:"Jewish Ashkenazi", generation:"прапрадід, ~1870", note:"архів синагоги, переказ родини"}
+    );
+  }
+  if(S.matches.length===0){
+    S.matches.push(
+      {id:uid(), isDemo:true, demoKey:"m1", name:"Іван Петренко", source:t("demo_source_name"), cm:"245", nation:"Ukrainian", note:"2nd cousin, лінія Ковальських"},
+      {id:uid(), isDemo:true, demoKey:"m2", name:"Марія С.", source:t("demo_source_name"), cm:"89", nation:"Polish", note:"ймовірно 3rd cousin"},
+      {id:uid(), isDemo:true, demoKey:"m3", name:"David Rabin", source:t("demo_source_name"), cm:"34", nation:"Jewish Ashkenazi", note:"4th cousin, лінія Рабіновичів"}
+    );
+  }
+
   scheduleSave(); render();
   S.justAddedId=null; S.animateNumbersNextRender=false;
 }
@@ -553,7 +1092,7 @@ function addSource(){
   S.newSourceName=""; S.newSourceText=""; S.newSourceDate="";
   S.justAddedId=newId; S.animateNumbersNextRender=true;
   if(dup){
-    S.importNotice="Увага: у тебе вже є джерело з назвою «"+trimmedName+"». Для довіри (★) я рахую однаково названі джерела як ОДНЕ, навіть якщо це різні звіти — якщо це справді окремий незалежний тест, перейменуй один із них (напр. додай дату чи номер кіта).";
+    S.importNotice=t("dup_source_warn",{name:trimmedName});
     S.importError=true;
   } else { S.importNotice=""; S.importError=false; }
   scheduleSave(); render();
@@ -565,7 +1104,7 @@ function archiveSource(id){
   var src=S.sources[idx];
   S.sources.splice(idx,1);
   S.archivedSources.push(src);
-  logDecision("Джерело «"+src.name+"» відправлено в архів");
+  logDecision("log_archived",{name:src.name});
   scheduleSave(); render();
 }
 function restoreSource(id){
@@ -574,12 +1113,21 @@ function restoreSource(id){
   var src=S.archivedSources[idx];
   S.archivedSources.splice(idx,1);
   S.sources.push(src);
-  logDecision("Джерело «"+src.name+"» відновлено з архіву");
+  logDecision("log_restored",{name:src.name});
   S.justAddedId=src.id; S.animateNumbersNextRender=true;
   scheduleSave(); render();
   S.justAddedId=null; S.animateNumbersNextRender=false;
 }
 function purgeSource(id){
+  if(S.confirmPurgeId!==id){
+    S.confirmPurgeId=id;
+    if(S.confirmPurgeTimer) clearTimeout(S.confirmPurgeTimer);
+    S.confirmPurgeTimer=setTimeout(function(){ S.confirmPurgeId=null; render(); }, 4000);
+    render();
+    return;
+  }
+  if(S.confirmPurgeTimer) clearTimeout(S.confirmPurgeTimer);
+  S.confirmPurgeId=null;
   S.archivedSources=S.archivedSources.filter(function(x){return x.id!==id;});
   scheduleSave(); render();
 }
@@ -595,13 +1143,13 @@ function addRow(srcId){
   var src=S.sources.find(function(s){return s.id===srcId;});
   if(!src) return;
   var newId=uid();
-  src.rows.push({id:newId, label:"", canonical:"", percent:0, ignored:false});
+  src.rows.push({id:newId, label:"", canonical:"", en:"", percent:0, ignored:false});
   S.justAddedId=newId;
   scheduleSave(); render();
   S.justAddedId=null;
 }
-function setUndoAction(type,payload,label){
-  S.undoAction={type:type,payload:payload,label:label};
+function setUndoAction(type,payload,labelKey,labelVars){
+  S.undoAction={type:type,payload:payload,labelKey:labelKey,labelVars:labelVars||{}};
   if(S.undoTimer) clearTimeout(S.undoTimer);
   S.undoTimer=setTimeout(function(){ S.undoAction=null; render(); }, 7000);
 }
@@ -629,7 +1177,7 @@ function removeRow(srcId,rowId){
   if(idx<0) return;
   var item=src.rows[idx];
   src.rows.splice(idx,1);
-  setUndoAction("row",{srcId:srcId,index:idx,item:item},"рядок «"+(item.canonical||item.label||"без назви")+"»");
+  setUndoAction("row",{srcId:srcId,index:idx,item:item},"row_label",{name:item.canonical||item.label||t("unnamed_row")});
   scheduleSave(); render();
 }
 function toggleIgnore(srcId,rowId){
@@ -660,7 +1208,7 @@ function removeAncestor(id){
   if(idx<0) return;
   var item=S.ancestors[idx];
   S.ancestors.splice(idx,1);
-  setUndoAction("ancestor",{index:idx,item:item},"пращура «"+item.name+"»");
+  setUndoAction("ancestor",{index:idx,item:item},"ancestor_label",{name:item.name});
   scheduleSave(); render();
 }
 
@@ -677,6 +1225,11 @@ function addMatchesBulk(){
 function updateMatch(id,field,value){
   var m=S.matches.find(function(x){return x.id===id;});
   if(!m) return;
+  if(m.isDemo){
+    var baked=demoView(m);
+    m.name=baked.name; m.nation=baked.nation; m.note=baked.note; if(baked.cm!==undefined) m.cm=baked.cm;
+    m.isDemo=false; m.demoKey=null;
+  }
   m[field]=value;
 }
 function removeMatch(id){
@@ -684,13 +1237,13 @@ function removeMatch(id){
   if(idx<0) return;
   var item=S.matches[idx];
   S.matches.splice(idx,1);
-  setUndoAction("match",{index:idx,item:item},"збіг «"+(item.name||"без імені")+"»");
+  setUndoAction("match",{index:idx,item:item},"match_label",{name:item.name||t("unnamed_match")});
   scheduleSave(); render();
 }
 function toggleCollapsed(id){ S.collapsed[id]=!S.collapsed[id]; render(); }
 function setClusterFor(key,val,name){
   S.clusters[key]=val;
-  if(val) logDecision("«"+name+"» об'єднано в кластер «"+val+"»");
+  if(val) logDecision("log_cluster",{name:name, cluster:val});
   scheduleSave();
 }
 function acceptMerge(pairKey,targetName,otherKey,otherName){
@@ -700,7 +1253,7 @@ function acceptMerge(pairKey,targetName,otherKey,otherName){
       if(k===otherKey) r.canonical=targetName;
     });
   });
-  logDecision("«"+otherName+"» об'єднано користувачем із «"+targetName+"»");
+  logDecision("log_merged",{a:otherName, b:targetName});
   S.dismissedSuggestions.push(pairKey);
   scheduleSave(); render();
 }
@@ -714,21 +1267,24 @@ function downloadBlob(content,filename,type){
   URL.revokeObjectURL(url);
 }
 function exportJSON(){
-  downloadBlob(JSON.stringify({sources:S.sources, archivedSources:S.archivedSources, matches:S.matches, clusters:S.clusters, notes:S.notes, ancestors:S.ancestors, versions:S.versions, decisionLog:S.decisionLog}, null, 2), "helixone-zvedennya.json", "application/json");
+  downloadBlob(JSON.stringify({schemaVersion:2, sources:S.sources, archivedSources:S.archivedSources, matches:S.matches, clusters:S.clusters, notes:S.notes, ancestors:S.ancestors, versions:S.versions, decisionLog:S.decisionLog, dismissedSuggestions:S.dismissedSuggestions, lang:S.lang}, null, 2), "helixone-zvedennya.json", "application/json");
   S.lastBackupTs=Date.now();
   scheduleSave(); render();
 }
 function exportCSV(){
   var agg=getAggregated();
-  var header="Група,Середнє %,Медіана %,Std,Мін,Макс,Джерел,Конфлікт\n";
+  var yes=t("yes"), no=t("no");
+  var header=t("csv_header")+"\n";
   var rows=agg.map(function(g){
-    return [g.name, fmt1(g.avg), fmt1(g.median), fmt1(g.std), g.min, g.max, g.independentSources.length, g.conflict?"так":"ні"].join(",");
+    return [g.name, (g.en||""), fmt1(g.avg), fmt1(g.median), fmt1(g.std), g.min, g.max, g.independentSources.length, g.conflict?yes:no].join(",");
   }).join("\n");
-  downloadBlob(header+rows, "dna-zvedennya.csv", "text/csv");
+  downloadBlob("\ufeff"+header+rows, "helixone-zvedennya.csv", "text/csv;charset=utf-8");
+  S.lastBackupTs=Date.now();
+  scheduleSave();
 }
 function exportPNG(){
   var aggregated=getAggregated();
-  if(aggregated.length===0){ alert("Спершу додай хоча б одне джерело з розпізнаними цифрами."); return; }
+  if(aggregated.length===0){ alert(t("pdf_need_data")); return; }
 
   var W=1080, H=1350;
   var canvas=document.createElement("canvas");
@@ -746,10 +1302,10 @@ function exportPNG(){
     ctx.fillStyle=GOLD; ctx.font="600 30px Inter, sans-serif"; ctx.textBaseline="middle";
     ctx.fillText("HELIXONE", 140, 96);
     ctx.fillStyle="#8B92A8"; ctx.font="20px 'IBM Plex Mono', monospace";
-    ctx.fillText("особистий реєстр походження", 140, 128);
+    ctx.fillText(t("png_sub"), 140, 128);
 
     ctx.fillStyle=INK; ctx.font="600 46px Fraunces, serif";
-    ctx.fillText("Зведення етнічного походження", 60, 210);
+    ctx.fillText(t("png_title"), 60, 210);
 
     // donut
     var total=aggregated.reduce(function(s,g){return s+g.avg;},0);
@@ -767,9 +1323,9 @@ function exportPNG(){
       startAngle=endAngle;
     });
     ctx.fillStyle=PAPER; ctx.font="600 34px 'IBM Plex Mono', monospace"; ctx.textAlign="center";
-    ctx.fillText(aggregated.length+" груп", cx, cy-10);
+    ctx.fillText(aggregated.length+" "+t("groups_many"), cx, cy-10);
     ctx.font="20px 'IBM Plex Mono', monospace"; ctx.fillStyle="#8B92A8";
-    ctx.fillText(getAllSourceNames().length+" джерел", cx, cy+24);
+    ctx.fillText(getAllSourceNames().length+" "+t("sources_many"), cx, cy+24);
     ctx.textAlign="left";
 
     // legend
@@ -781,8 +1337,8 @@ function exportPNG(){
       ctx.fillStyle=BAR_COLORS[i%BAR_COLORS.length];
       ctx.beginPath(); ctx.arc(colX+8,y,8,0,Math.PI*2); ctx.fill();
       ctx.fillStyle=INK; ctx.font="22px 'IBM Plex Mono', monospace"; ctx.textAlign="left";
-      var label=(getGroupEmoji(g.name)?getGroupEmoji(g.name)+" ":"")+g.name;
-      if(label.length>22) label=label.slice(0,21)+"…";
+      var label=(getGroupEmoji(g.name)?getGroupEmoji(g.name)+" ":"")+g.name+(g.en?" / "+g.en:"");
+      if(label.length>28) label=label.slice(0,27)+"…";
       ctx.fillText(label, colX+26, y);
       ctx.fillStyle=GOLD; ctx.font="600 22px 'IBM Plex Mono', monospace"; ctx.textAlign="right";
       ctx.fillText(fmt1(g.avg)+"%", colX+430, y);
@@ -793,7 +1349,7 @@ function exportPNG(){
     ctx.strokeStyle=GOLD+"55"; ctx.lineWidth=1;
     ctx.beginPath(); ctx.moveTo(60,H-100); ctx.lineTo(W-60,H-100); ctx.stroke();
     ctx.fillStyle="#8B92A8"; ctx.font="18px 'IBM Plex Mono', monospace";
-    ctx.fillText("HelixOne · особистий генеалогічний архів · "+new Date().toLocaleDateString("uk-UA"), 60, H-60);
+    ctx.fillText("HelixOne · "+t("png_footer_bit")+" · "+new Date().toLocaleDateString(S.lang==="en"?"en-GB":"uk-UA"), 60, H-60);
 
     var url=canvas.toDataURL("image/png");
     var a=document.createElement("a");
@@ -808,15 +1364,16 @@ function exportPNG(){
 
 function exportPDF(){
   var aggregated=getAggregated();
-  if(aggregated.length===0){ alert("Спершу додай хоча б одне джерело з розпізнаними цифрами."); return; }
+  if(aggregated.length===0){ alert(t("pdf_need_data")); return; }
   var clusterRollup=getClusterRollup(aggregated);
   var sourceNames=getAllSourceNames();
-  var today=new Date().toLocaleDateString("uk-UA",{year:"numeric",month:"long",day:"numeric"});
+  var today=new Date().toLocaleDateString(S.lang==="en"?"en-GB":"uk-UA",{year:"numeric",month:"long",day:"numeric"});
 
   var rowsHtml=aggregated.map(function(g){
     var sup=supportLevel(g.independentSources.length);
+    var nameCell=esc(g.name)+(g.en?' <span class="muted">/ '+esc(g.en)+'</span>':'')+(g.conflict?' <span class="flag">⚠ '+t("conflict")+'</span>':'');
     return '<tr>'+
-      '<td class="name">'+esc(g.name)+(g.conflict?' <span class="flag">⚠ конфлікт джерел</span>':'')+'</td>'+
+      '<td class="name">'+nameCell+'</td>'+
       '<td class="num">'+fmt1(g.avg)+'%</td>'+
       '<td class="num muted">'+fmt1(g.median)+'%</td>'+
       '<td class="num muted">'+g.min+'–'+g.max+'%</td>'+
@@ -826,20 +1383,20 @@ function exportPDF(){
   }).join("");
 
   var clusterHtml = clusterRollup.length ? (
-    '<h2>Кластери</h2><ul class="cluster-list">' +
+    '<h2>'+t("clusters_title")+'</h2><ul class="cluster-list">' +
     clusterRollup.map(function(c){ return '<li><b>'+esc(c.name)+'</b> — '+fmt1(c.avg)+'% <span class="muted">('+c.members.map(esc).join(", ")+')</span></li>'; }).join("") +
     '</ul>'
   ) : "";
 
   var agreementHtml = aggregated.slice().sort(function(a,b){return b.agreement-a.agreement;}).map(function(g){
-    return '<tr><td>'+esc(g.name)+'</td><td class="num">'+Math.round(g.agreement)+'%</td></tr>';
+    return '<tr><td>'+esc(g.name)+(g.en?' <span class="muted">/ '+esc(g.en)+'</span>':'')+'</td><td class="num">'+Math.round(g.agreement)+'%</td></tr>';
   }).join("");
 
   var sourcesHtml = S.sources.map(function(s){
-    return '<li>'+esc(s.name)+' <span class="muted">— '+LEVELS[s.level||"modern"]+(s.date?", "+s.date:"")+'</span></li>';
+    return '<li>'+esc(displaySourceName(s.name))+' <span class="muted">— '+LEVELS[s.level||"modern"]+(s.date?", "+s.date:"")+'</span></li>';
   }).join("");
 
-  var doc = '<!DOCTYPE html><html lang="uk"><head><meta charset="UTF-8"><title>Генетичний паспорт</title><style>'+
+  var doc = '<!DOCTYPE html><html lang="'+(S.lang==="en"?"en":"uk")+'"><head><meta charset="UTF-8"><title>'+t("pdf_title")+'</title><style>'+
     "@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400&display=swap');"+
     'body{font-family:"Source Serif 4",serif;color:#2A2116;max-width:780px;margin:0 auto;padding:40px 32px;}'+
     'h1{font-family:"Fraunces",serif;font-size:28px;margin-bottom:4px;}'+
@@ -862,20 +1419,20 @@ function exportPDF(){
     '.footer{margin-top:40px;padding-top:12px;border-top:1px solid #AD8A4E55;color:#6B5F4C;font-family:"IBM Plex Mono",monospace;font-size:10px;}'+
     '@media print{ body{padding:0;} }'+
     '</style></head><body>'+
-    '<h1>Генетичний паспорт</h1>'+
-    '<div class="subtitle">Особистий реєстр походження · складено '+today+' · джерел: '+sourceNames.length+'</div>'+
-    '<div class="warn">Ніяких нових наукових обчислень — лише усереднення того, що вже видали лабораторії ('+esc(sourceNames.join(", "))+'). Це не медичний чи юридичний документ.</div>'+
-    '<h2>Зведені групи походження</h2>'+
-    '<table><thead><tr><th>Група</th><th>Середнє</th><th>Медіана</th><th>Діапазон</th><th>Джерел</th><th>Сила</th></tr></thead><tbody>'+rowsHtml+'</tbody></table>'+
+    '<h1>'+t("pdf_title")+'</h1>'+
+    '<div class="subtitle">'+t("pdf_subtitle")+' · '+t("pdf_composed")+' '+today+' · '+t("pdf_sources_n",{n:sourceNames.length})+'</div>'+
+    '<div class="warn">'+t("pdf_warn",{sources:esc(sourceNames.join(", "))})+'</div>'+
+    '<h2>'+t("pdf_groups_h")+'</h2>'+
+    '<table><thead><tr><th>'+t("pdf_th_group")+'</th><th>'+t("pdf_th_avg")+'</th><th>'+t("median")+'</th><th>'+t("range")+'</th><th>'+t("pdf_th_sources")+'</th><th>'+t("pdf_th_strength")+'</th></tr></thead><tbody>'+rowsHtml+'</tbody></table>'+
     clusterHtml+
-    '<h2>Індекс узгодженості між джерелами</h2>'+
-    '<table><thead><tr><th>Група</th><th>Узгодженість</th></tr></thead><tbody>'+agreementHtml+'</tbody></table>'+
-    '<h2>Використані джерела</h2><ul class="source-list">'+sourcesHtml+'</ul>'+
-    '<div class="footer">Сформовано автоматично · HelixOne · особистий генеалогічний архів</div>'+
+    '<h2>'+t("pdf_agreement_h")+'</h2>'+
+    '<table><thead><tr><th>'+t("pdf_th_group")+'</th><th>'+t("agreement")+'</th></tr></thead><tbody>'+agreementHtml+'</tbody></table>'+
+    '<h2>'+t("pdf_sources_h")+'</h2><ul class="source-list">'+sourcesHtml+'</ul>'+
+    '<div class="footer">'+t("pdf_footer")+'</div>'+
     '</body></html>';
 
   var w=window.open("", "_blank");
-  if(!w){ alert("Браузер заблокував нове вікно для друку. Дозволь спливаючі вікна для цієї сторінки й спробуй ще раз."); return; }
+  if(!w){ alert(t("pdf_popup_blocked")); return; }
   w.document.write(doc);
   w.document.close();
   w.focus();
@@ -886,14 +1443,14 @@ function askAI(){
   var agg=getAggregated();
   if(agg.length===0) return;
   if(!S.apiKey.trim()){
-    S.aiComment="Щоб увімкнути AI-коментар у цьому автономному файлі, встав свій Anthropic API-ключ у поле вище (він нікуди не зберігається, лише в пам'яті поки відкрита сторінка).";
+    S.aiComment=t("ai_need_key");
     render(); return;
   }
   S.aiLoading=true; S.aiComment=""; render();
   var payload=agg.map(function(g){
     return {group:g.name, avg:Math.round(g.avg*10)/10, median:Math.round(g.median*10)/10, sources:g.independentSources.length, conflict:g.conflict};
   });
-  var prompt="Ось зведені дані по групах етнічного походження з кількох ДНК-баз (JSON нижче). Твоя задача — коротко, 3-5 речень, українською, описати ТІЛЬКИ патерни, які прямо видно в цих цифрах: які групи підтверджені кількома незалежними джерелами, де є суперечності (conflict: true), де мало даних. НЕ вигадуй нову генетичну інформацію, НЕ роби висновків про походження людини поза цими цифрами, НЕ додавай нових відсотків. Пиши обережно, як спостереження над даними, не як експертний висновок.\n\n"+JSON.stringify(payload);
+  var prompt=t("ai_prompt")+"\n\n"+JSON.stringify(payload);
   fetch("https://api.anthropic.com/v1/messages",{
     method:"POST",
     headers:{
@@ -904,19 +1461,19 @@ function askAI(){
     },
     body:JSON.stringify({model:"claude-sonnet-4-6", max_tokens:1000, messages:[{role:"user", content:prompt}]})
   }).then(function(res){ return res.json(); }).then(function(data){
-    if(data.error){ S.aiComment="Помилка API: "+(data.error.message||"невідома"); }
+    if(data.error){ S.aiComment=t("ai_error_api",{m:data.error.message||t("ai_error_unknown")}); }
     else{
       var text=(data.content||[]).map(function(c){return c.text||"";}).join("\n").trim();
-      S.aiComment=text||"Не вдалося отримати відповідь.";
+      S.aiComment=text||t("ai_no_response");
     }
   }).catch(function(){
-    S.aiComment="Помилка запиту (можливо, CORS блокує прямий виклик з браузера). Спробуй ще раз або онови ключ.";
+    S.aiComment=t("ai_error_request");
   }).finally(function(){ S.aiLoading=false; render(); });
 }
 
 /* ---------- render ---------- */
 function starsHtml(n,indepCount){
-  var title="Довіра "+n+"/5 — рахується по кількості РІЗНОНАЗВАНИХ джерел ("+(indepCount||0)+"), однаково названі джерела рахуються як одне.";
+  var title=t("stars_title",{n:n, count:indepCount||0});
   var s='<span style="color:'+GOLD+'" class="inline-flex" title="'+esc(title)+'">';
   for(var i=1;i<=5;i++){ s+=icon("star",{size:12, color:GOLD, fill:(i<=n?GOLD:"none"), sw:1.2}); }
   return s+'</span>';
@@ -927,12 +1484,28 @@ function renderHeader(aggregated){
   if(S.sources.length>0){
     var avgStars = aggregated.length ? (aggregated.reduce(function(s,g){return s+g.stars;},0)/aggregated.length) : 0;
     var lastDate = S.sources.map(function(s){return s.date;}).filter(Boolean).sort().slice(-1)[0];
-    var parts=[S.sources.length+' '+(S.sources.length===1?'джерело':'джерел'), aggregated.length+' '+(aggregated.length===1?'група':'груп'), '★ '+avgStars.toFixed(1)+' середня довіра'];
-    if(lastDate) parts.push('оновлено '+lastDate);
+    var parts=[
+      S.sources.length+' '+(S.sources.length===1?t("sources_one"):t("sources_many")),
+      aggregated.length+' '+(aggregated.length===1?t("groups_one"):t("groups_many")),
+      '★ '+avgStars.toFixed(1)+' '+t("avg_trust")
+    ];
+    if(lastDate) parts.push(t("updated")+' '+lastDate);
     statStrip='<div class="flex items-center flex-wrap gap-2 mt-3">'+parts.map(function(p,i){
       return '<span style="background:'+NAVY_DEEP+';color:'+GOLD+';font-family:\'IBM Plex Mono\',monospace;border:1px solid '+GOLD+'40" class="text-11 px-2_5 py-1 rounded-full">'+esc(p)+'</span>';
     }).join("")+'</div>';
   }
+  var langToggle='<div class="flex rounded-sm overflow-hidden" style="border:1px solid '+GOLD+'66">' +
+    ["uk","en"].map(function(lng){
+      var active=S.lang===lng;
+      return '<button data-action="set-lang" data-value="'+lng+'" style="background:'+(active?GOLD:"transparent")+';color:'+(active?NAVY_DEEP:GOLD)+';font-family:\'Inter\',sans-serif;font-weight:'+(active?"600":"400")+'" class="px-2_5 py-1_5 text-xs">'+(lng==="uk"?"UA":"EN")+'</button>';
+    }).join("") +
+  '</div>';
+  var modeToggle='<div class="flex rounded-sm overflow-hidden" style="border:1px solid '+GOLD+'66">' +
+    ["simple","scientific"].map(function(mm){
+      var active=S.mode===mm;
+      return '<button data-action="set-mode" data-value="'+mm+'" style="background:'+(active?GOLD:"transparent")+';color:'+(active?NAVY_DEEP:GOLD)+';font-family:\'Inter\',sans-serif" class="px-3 py-1_5 text-xs">'+(mm==="simple"?t("mode_simple"):t("mode_scientific"))+'</button>';
+    }).join("") +
+  '</div>';
   return '' +
   '<div style="background:linear-gradient(180deg,'+NAVY_DEEP+' 0%, '+NAVY+' 100%)" class="px-5 pt-10 pb-6 sm-px-10">' +
     '<div class="max-w-4xl">' +
@@ -940,17 +1513,15 @@ function renderHeader(aggregated){
         '<div class="flex items-center gap-3">' +
           '<img src="'+LOGO_DATA_URI+'" alt="HelixOne" width="28" height="28" style="border-radius:6px;display:block" />' +
           '<span style="color:'+GOLD+';font-family:\'Inter\',sans-serif;letter-spacing:.14em;font-weight:600" class="text-xs uppercase">HelixOne</span>' +
-          '<span style="color:#8B92A8;font-family:\'Inter\',sans-serif;letter-spacing:.1em" class="text-11 uppercase">· особистий реєстр походження</span>' +
+          '<span style="color:#8B92A8;font-family:\'Inter\',sans-serif;letter-spacing:.1em" class="text-11 uppercase">'+t("brand_sub")+'</span>' +
         '</div>' +
-        '<div class="flex rounded-sm overflow-hidden" style="border:1px solid '+GOLD+'66">' +
-          ["simple","scientific"].map(function(mm){
-            var active=S.mode===mm;
-            return '<button data-action="set-mode" data-value="'+mm+'" style="background:'+(active?GOLD:"transparent")+';color:'+(active?NAVY_DEEP:GOLD)+';font-family:\'Inter\',sans-serif" class="px-3 py-1_5 text-xs">'+(mm==="simple"?"Простий":"Науковий")+'</button>';
-          }).join("") +
+        '<div class="flex items-center gap-2 flex-wrap">' +
+          langToggle +
+          modeToggle +
         '</div>' +
       '</div>' +
-      '<h1 style="color:'+INK+';font-family:\'Fraunces\',serif;font-weight:600;letter-spacing:-.01em" class="text-3xl sm-text-4xl leading-tight">Зведення етнічних джерел</h1>' +
-      '<p style="color:#8B92A8" class="mt-2 text-sm sm-text-base max-w-2xl">Звід цифр, які вже видали GEDmatch, MyHeritage, FTDNA чи інші бази — усереднення, медіана, довіра і конфлікти між джерелами.</p>' +
+      '<h1 style="color:'+INK+';font-family:\'Fraunces\',serif;font-weight:600;letter-spacing:-.01em" class="text-3xl sm-text-4xl leading-tight">'+t("title")+'</h1>' +
+      '<p style="color:#8B92A8" class="mt-2 text-sm sm-text-base max-w-2xl">'+t("subtitle")+'</p>' +
       statStrip +
     '</div>' +
   '</div>';
@@ -959,43 +1530,43 @@ function renderHeader(aggregated){
 function renderWarning(){
   return '<div style="background:#2A2130;border-left:3px solid '+WINE_LIGHT+'" class="rounded-sm p-4 mb-6 flex gap-3">' +
     icon("alert-triangle",{size:18,color:WINE_LIGHT,cls:"shrink-0"}) +
-    '<p style="color:#C9B8B4;font-family:\'Inter\',sans-serif" class="text-xs leading-relaxed">Ніяких нових наукових обчислень — лише усереднення того, що вже видали лабораторії. AI-коментар (нижче) теж не вигадує нових цифр, а лише описує патерни в тому, що вже є.</p>' +
+    '<p style="color:#C9B8B4;font-family:\'Inter\',sans-serif" class="text-xs leading-relaxed">'+t("warning")+'</p>' +
   '</div>';
 }
 
 function renderAddSource(){
   var levelBtns=Object.keys(LEVELS).map(function(k){
     var active=S.newSourceLevel===k;
-    return '<button data-action="set-source-level" data-value="'+k+'" style="background:'+(active?WINE:PAPER_DIM)+';color:'+(active?PAPER:TEXT_MUTE)+';font-family:\'Inter\',sans-serif" class="text-11 px-2_5 py-1 rounded-sm">'+LEVELS[k]+'</button>';
+    return '<button data-action="set-source-level" data-value="'+k+'" style="background:'+(active?WINE:PAPER_DIM)+';color:'+(active?PAPER:TEXT_MUTE)+';font-family:\'Inter\',sans-serif" class="text-11 px-2_5 py-1 rounded-sm">'+levelLabel(k)+'</button>';
   }).join("");
   var canAdd=S.newSourceName.trim().length>0;
   return '<section style="'+accentStyle("#8A3540")+'background:'+PAPER+';box-shadow:0 1px 2px rgba(10,12,20,.06),0 16px 32px rgba(10,12,20,.14)" class="rounded-sm p-5 sm-p-6 mb-6 card-hover paper-texture accent-spine">' +
-    '<div class="flex items-center gap-2 mb-4">' + icon("file-text",{size:18,color:WINE}) + '<h2 style="color:'+TEXT_DARK+';font-family:\'Fraunces\',serif" class="text-lg font-semibold">Додати джерело</h2></div>' +
-    (S.sources.length===0 && S.archivedSources.length===0 ? '<button data-action="add-example" style="background:'+NAVY_DEEP+';color:'+GOLD+';font-family:\'Inter\',sans-serif;border:1px solid '+GOLD+'55" class="text-11 px-3 py-1_5 rounded-sm mb-4 inline-flex items-center gap-1_5">'+icon("sparkles",{size:12})+' спробувати на прикладі (демо-дані)</button>' : "") +
-    '<input data-bind="newSourceName" value="'+esc(S.newSourceName)+'" placeholder="Назва джерела (напр. MyHeritage, GEDmatch Oracle, FTDNA myOrigins)" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif;border:1px solid '+GOLD+'55" class="w-full rounded-sm px-3 py-2 text-sm mb-3 outline-none" />' +
-    '<input type="date" data-bind="newSourceDate" value="'+esc(S.newSourceDate)+'" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif;border:1px solid '+GOLD+'55" class="rounded-sm px-3 py-2 text-sm mb-3 outline-none" title="Дата звіту (необов\'язково) — щоб бачити, чи дані ще актуальні" />' +
+    '<div class="flex items-center gap-2 mb-4">' + icon("file-text",{size:18,color:WINE}) + '<h2 style="color:'+TEXT_DARK+';font-family:\'Fraunces\',serif" class="text-lg font-semibold">'+t("add_source")+'</h2></div>' +
+    (S.sources.length===0 && S.archivedSources.length===0 ? '<button data-action="add-example" style="background:'+NAVY_DEEP+';color:'+GOLD+';font-family:\'Inter\',sans-serif;border:1px solid '+GOLD+'55" class="text-11 px-3 py-1_5 rounded-sm mb-4 inline-flex items-center gap-1_5">'+icon("sparkles",{size:12})+' '+t("try_demo")+'</button>' : "") +
+    '<input data-bind="newSourceName" value="'+esc(S.newSourceName)+'" placeholder="'+esc(t("source_name_ph"))+'" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif;border:1px solid '+GOLD+'55" class="w-full rounded-sm px-3 py-2 text-sm mb-3 outline-none" />' +
+    '<input type="date" data-bind="newSourceDate" value="'+esc(S.newSourceDate)+'" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif;border:1px solid '+GOLD+'55" class="rounded-sm px-3 py-2 text-sm mb-3 outline-none" title="'+esc(t("report_date"))+'" />' +
     '<div class="flex flex-wrap gap-2 mb-3">'+levelBtns+'</div>' +
     '<label style="background:'+PAPER_DIM+';color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif;border:1px dashed '+GOLD+'66" class="inline-flex items-center gap-1_5 text-11 px-2_5 py-1_5 rounded-sm mb-3 cursor-pointer">' +
-    icon("download",{size:12}) + ' завантажити файл (.csv, .txt, .json)' +
+    icon("download",{size:12}) + ' '+t("upload_file") +
     '<input type="file" accept=".csv,.txt,.json" data-file-import="1" style="display:none" />' +
     '</label>' +
     (S.importNotice ? '<p style="color:'+(S.importError?WINE:GREEN)+';font-family:\'Inter\',sans-serif" class="text-11 mb-3 reveal">'+esc(S.importNotice)+'</p>' : "") +
-    '<textarea data-bind="newSourceText" placeholder="Встав сюди скопійований текст звіту (з процентами)…" rows="5" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif;border:1px solid '+GOLD+'55" class="w-full rounded-sm px-3 py-2 text-sm mb-3 outline-none resize-y">'+esc(S.newSourceText)+'</textarea>' +
-    '<button data-action="add-source" '+(canAdd?"":"disabled")+' style="background:'+(canAdd?WINE:"#B7ADA0")+';color:'+PAPER+';font-family:\'Inter\',sans-serif" class="rounded-sm px-4 py-2 text-sm font-medium flex items-center gap-2">'+icon("plus",{size:15})+' Розпізнати й додати</button>' +
+    '<textarea data-bind="newSourceText" placeholder="'+esc(t("paste_text_ph"))+'" rows="5" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif;border:1px solid '+GOLD+'55" class="w-full rounded-sm px-3 py-2 text-sm mb-3 outline-none resize-y">'+esc(S.newSourceText)+'</textarea>' +
+    '<button data-action="add-source" '+(canAdd?"":"disabled")+' style="background:'+(canAdd?WINE:"#B7ADA0")+';color:'+PAPER+';font-family:\'Inter\',sans-serif" class="rounded-sm px-4 py-2 text-sm font-medium flex items-center gap-2">'+icon("plus",{size:15})+' '+t("recognize_add")+'</button>' +
   '</section>';
 }
 
 function renderAllReportsToggle(){
   if(S.sources.length===0) return "";
   var html='<div class="mb-4"><button data-action="toggle-all-reports" style="color:'+GOLD+';font-family:\'Inter\',sans-serif;border:1px solid '+GOLD+'55" class="text-xs flex items-center gap-1_5 px-3 py-1_5 rounded-sm">'+
-    icon("file-text",{size:13})+' '+(S.showAllReports?"сховати всі тексти звітів":"переглянути всі звіти одразу (не по одному)")+'</button>';
+    icon("file-text",{size:13})+' '+(S.showAllReports?t("hide_all_reports"):t("view_all_reports"))+'</button>';
   if(S.showAllReports){
     html+='<div style="background:'+PAPER+';box-shadow:0 1px 2px rgba(10,12,20,.06),0 16px 32px rgba(10,12,20,.14)" class="rounded-sm p-5 sm-p-6 mt-3 space-y-5 max-h-70vh overflow-y-auto">';
     S.sources.forEach(function(src){
       html+='<div><div class="flex items-center gap-2 mb-1_5">'+
-        '<span style="color:'+TEXT_DARK+';font-family:\'Fraunces\',serif" class="font-semibold text-sm">'+esc(src.name)+'</span>'+
-        '<span style="background:'+GOLD+'33;color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif" class="text-10 px-1_5 py-0_5 rounded-sm">'+LEVELS[src.level||"modern"]+'</span></div>'+
-        '<pre style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="text-11 rounded-sm p-3 whitespace-pre-wrap">'+esc(src.rawText||"(текст не збережено)")+'</pre></div>';
+        '<span style="color:'+TEXT_DARK+';font-family:\'Fraunces\',serif" class="font-semibold text-sm">'+esc(displaySourceName(src.name))+'</span>'+
+        '<span style="background:'+GOLD+'33;color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif" class="text-10 px-1_5 py-0_5 rounded-sm">'+levelLabel(src.level||"modern")+'</span></div>'+
+        '<pre style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="text-11 rounded-sm p-3 whitespace-pre-wrap">'+esc(src.rawText||t("text_not_saved"))+'</pre></div>';
     });
     html+='</div>';
   }
@@ -1005,10 +1576,10 @@ function renderAllReportsToggle(){
 
 function renderLevelTabs(){
   if(S.sources.length===0) return "";
-  var tabs=[["all","Усі рівні"]].concat(Object.keys(LEVELS).map(function(k){return [k,LEVELS[k]];}));
-  return '<div class="flex flex-wrap gap-1_5 mb-5">'+tabs.map(function(t){
-    var active=S.activeTab===t[0];
-    return '<button data-action="set-tab" data-value="'+t[0]+'" style="background:'+(active?GOLD:"transparent")+';color:'+(active?NAVY_DEEP:"#8B92A8")+';border:1px solid '+GOLD+'55;font-family:\'Inter\',sans-serif" class="text-11 px-3 py-1_5 rounded-sm">'+t[1]+'</button>';
+  var tabs=[["all",t("tab_all")]].concat(Object.keys(LEVELS).map(function(k){return [k,levelLabel(k)];}));
+  return '<div class="flex flex-wrap gap-1_5 mb-5">'+tabs.map(function(tab){
+    var active=S.activeTab===tab[0];
+    return '<button data-action="set-tab" data-value="'+tab[0]+'" style="background:'+(active?GOLD:"transparent")+';color:'+(active?NAVY_DEEP:"#8B92A8")+';border:1px solid '+GOLD+'55;font-family:\'Inter\',sans-serif" class="text-11 px-3 py-1_5 rounded-sm">'+tab[1]+'</button>';
   }).join("")+'</div>';
 }
 
@@ -1018,10 +1589,10 @@ function renderMergeSuggestions(aggregated){
   return '<div class="space-y-2 mb-5">'+sugs.map(function(sug){
     return '<div style="background:#2A2130;border-left:3px solid '+GOLD+'" class="rounded-sm p-3 flex items-center justify-between flex-wrap gap-2 reveal">'+
       '<div class="flex items-center gap-2">'+icon("git-merge",{size:15,color:GOLD})+
-      '<span style="color:#E9DFC8;font-family:\'Inter\',sans-serif" class="text-xs">Схоже, «'+esc(sug.a.name)+'» і «'+esc(sug.b.name)+'» споріднені категорії. Об\'єднати?</span></div>'+
+      '<span style="color:#E9DFC8;font-family:\'Inter\',sans-serif" class="text-xs">'+t("merge_suggest",{a:sug.a.name,b:sug.b.name})+'</span></div>'+
       '<div class="flex gap-2">'+
-      '<button data-action="accept-merge" data-pairkey="'+esc(sug.pairKey)+'" data-target="'+esc(sug.a.name)+'" data-otherkey="'+esc(sug.b.key)+'" data-othername="'+esc(sug.b.name)+'" style="background:'+GOLD+';color:'+NAVY_DEEP+';font-family:\'Inter\',sans-serif" class="text-11 px-2_5 py-1 rounded-sm">Об\'єднати</button>'+
-      '<button data-action="dismiss-merge" data-pairkey="'+esc(sug.pairKey)+'" style="color:#8B92A8;font-family:\'Inter\',sans-serif" class="text-11 px-2_5 py-1">Ні, лишити окремо</button>'+
+      '<button data-action="accept-merge" data-pairkey="'+esc(sug.pairKey)+'" data-target="'+esc(sug.a.name)+'" data-otherkey="'+esc(sug.b.key)+'" data-othername="'+esc(sug.b.name)+'" style="background:'+GOLD+';color:'+NAVY_DEEP+';font-family:\'Inter\',sans-serif" class="text-11 px-2_5 py-1 rounded-sm">'+t("merge_yes")+'</button>'+
+      '<button data-action="dismiss-merge" data-pairkey="'+esc(sug.pairKey)+'" style="color:#8B92A8;font-family:\'Inter\',sans-serif" class="text-11 px-2_5 py-1">'+t("merge_no")+'</button>'+
       '</div></div>';
   }).join("")+'</div>';
 }
@@ -1033,37 +1604,40 @@ function renderSourcesList(){
     var active=src.rows.filter(function(r){return !r.ignored;}).length;
     var isNew = src.id===S.justAddedId;
     var sumPct = src.rows.filter(function(r){return !r.ignored;}).reduce(function(s,r){return s+(parseFloat(r.percent)||0);},0);
-    var sumOff = active>0 && (sumPct<90 || sumPct>110);
+    var lvl = src.level||"modern";
+    // partial ancient/oracle reports often don't sum to 100% — only warn for modern/estimate
+    var sumOff = active>0 && (lvl==="modern"||lvl==="estimate") && (sumPct<90 || sumPct>110);
     html+='<div style="background:'+PAPER+';box-shadow:0 1px 2px rgba(10,12,20,.05),0 8px 20px rgba(10,12,20,.10)" class="rounded-sm card-hover paper-texture'+(isNew?' pop-in':'')+'">';
-    html+='<div data-action="toggle-collapsed" data-id="'+src.id+'" role="button" tabindex="0" aria-expanded="'+(!S.collapsed[src.id])+'" aria-label="Згорнути або розгорнути джерело '+esc(src.name)+'" class="flex items-center justify-between px-5 py-3 cursor-pointer select-none">'+
+    html+='<div data-action="toggle-collapsed" data-id="'+src.id+'" role="button" tabindex="0" aria-expanded="'+(!S.collapsed[src.id])+'" aria-label="'+esc(t("toggle_source"))+' '+esc(displaySourceName(src.name))+'" class="flex items-center justify-between px-5 py-3 cursor-pointer select-none">'+
       '<div class="flex items-center gap-2 flex-wrap">'+
       (S.collapsed[src.id] ? icon("chevron-down",{size:16,color:TEXT_MUTE}) : icon("chevron-up",{size:16,color:TEXT_MUTE})) +
-      '<span style="color:'+TEXT_DARK+';font-family:\'Fraunces\',serif" class="font-semibold">'+esc(src.name)+'</span>'+
-      '<span style="background:'+GOLD+'33;color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif" class="text-10 px-1_5 py-0_5 rounded-sm">'+LEVELS[src.level||"modern"]+'</span>'+
-      (src.date ? '<span style="background:'+(isStale(src.date)?WINE+"22":GREEN+"22")+';color:'+(isStale(src.date)?WINE:GREEN)+';font-family:\'Inter\',sans-serif" class="text-10 px-1_5 py-0_5 rounded-sm" title="'+(isStale(src.date)?"дані старші за рік — алгоритми могли оновитись":"звіт відносно свіжий")+'">'+src.date+(isStale(src.date)?" ⚠":"")+'</span>' : "") +
-      (active>0 ? '<span style="background:'+(sumOff?WINE+"22":"transparent")+';color:'+(sumOff?WINE:TEXT_MUTE)+';font-family:\'IBM Plex Mono\',monospace" class="text-10 px-1_5 py-0_5 rounded-sm" title="Сума активних % у цьому джерелі — має бути ~100%">сума: '+Math.round(sumPct)+'%'+(sumOff?" ⚠":"")+'</span>' : "") +
-      '<span style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif" class="text-xs">· '+active+'/'+src.rows.length+' активних</span>'+
+      '<span style="color:'+TEXT_DARK+';font-family:\'Fraunces\',serif" class="font-semibold">'+esc(displaySourceName(src.name))+'</span>'+
+      '<span style="background:'+GOLD+'33;color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif" class="text-10 px-1_5 py-0_5 rounded-sm">'+levelLabel(src.level||"modern")+'</span>'+
+      (src.date ? '<span style="background:'+(isStale(src.date)?WINE+"22":GREEN+"22")+';color:'+(isStale(src.date)?WINE:GREEN)+';font-family:\'Inter\',sans-serif" class="text-10 px-1_5 py-0_5 rounded-sm" title="'+(isStale(src.date)?t("data_stale"):t("data_fresh"))+'">'+src.date+(isStale(src.date)?" ⚠":"")+'</span>' : "") +
+      (active>0 ? '<span style="background:'+(sumOff?WINE+"22":"transparent")+';color:'+(sumOff?WINE:TEXT_MUTE)+';font-family:\'IBM Plex Mono\',monospace" class="text-10 px-1_5 py-0_5 rounded-sm" title="'+esc(t("sum_hint"))+'">'+t("sum_label")+': '+Math.round(sumPct)+'%'+(sumOff?" ⚠":"")+'</span>' : "") +
+      '<span style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif" class="text-xs">· '+active+'/'+src.rows.length+' '+t("active_of")+'</span>'+
       '</div>'+
-      '<button data-action="remove-source" data-id="'+src.id+'" data-stop="1" title="Відправити в архів" aria-label="Відправити джерело в архів" class="p-1 opacity-60 hover-op">'+icon("trash",{size:15,color:WINE})+'</button>'+
+      '<button data-action="remove-source" data-id="'+src.id+'" data-stop="1" title="'+esc(t("to_archive"))+'" aria-label="'+esc(t("to_archive"))+'" class="p-1 opacity-60 hover-op">'+icon("trash",{size:15,color:WINE})+'</button>'+
       '</div>';
     if(!S.collapsed[src.id]){
       html+='<div class="px-5 pb-4">';
-      html+='<div class="grid grid-row gap-2 mb-1">'+["","Знайдено","Група (зведення)","%",""].map(function(h){
+      html+='<div class="grid grid-row gap-2 mb-1">'+["",t("found"),t("group_uk"),t("en_col"),"%",""].map(function(h){
         return '<span style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif" class="text-11 uppercase">'+h+'</span>';
       }).join("")+'</div>';
       src.rows.forEach(function(row){
         html+='<div class="grid grid-row gap-2 mb-1_5 items-center'+(row.id===S.justAddedId?' pop-in':'')+'" style="opacity:'+(row.ignored?0.4:1)+'">'+
-          '<button data-action="toggle-ignore" data-src="'+src.id+'" data-row="'+row.id+'" title="'+(row.ignored?"Врахувати знову":"Ігнорувати (лишити в архіві)")+'" aria-label="'+(row.ignored?"Врахувати рядок знову":"Ігнорувати рядок")+'">'+
+          '<button data-action="toggle-ignore" data-src="'+src.id+'" data-row="'+row.id+'" title="'+(row.ignored?t("unignore"):t("ignore"))+'" aria-label="'+(row.ignored?t("unignore"):t("ignore"))+'">'+
           (row.ignored?icon("eye-off",{size:14,color:TEXT_MUTE}):icon("eye",{size:14,color:GREEN}))+'</button>'+
           '<input data-bind-row="label" data-src="'+src.id+'" data-row="'+row.id+'" value="'+esc(row.label)+'" style="background:'+PAPER_DIM+';color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif;text-decoration:'+(row.ignored?"line-through":"none")+'" class="rounded-sm px-2 py-1_5 text-xs outline-none" />'+
           '<input data-bind-row="canonical" data-src="'+src.id+'" data-row="'+row.id+'" value="'+esc(row.canonical)+'" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="rounded-sm px-2 py-1_5 text-xs outline-none font-medium" />'+
+          '<input data-bind-row="en" data-src="'+src.id+'" data-row="'+row.id+'" value="'+esc(row.en||"")+'" placeholder="'+esc(t("english_ph"))+'" title="EN" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif;font-style:italic;opacity:.9" class="rounded-sm px-2 py-1_5 text-xs outline-none" />'+
           '<input type="number" data-bind-row="percent" data-src="'+src.id+'" data-row="'+row.id+'" value="'+row.percent+'" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="rounded-sm px-2 py-1_5 text-xs outline-none" />'+
-          '<button data-action="remove-row" data-src="'+src.id+'" data-row="'+row.id+'" aria-label="Видалити рядок" class="flex items-center justify-center opacity-50 hover-op">'+icon("trash",{size:13,color:WINE})+'</button>'+
+          '<button data-action="remove-row" data-src="'+src.id+'" data-row="'+row.id+'" aria-label="remove" class="flex items-center justify-center opacity-50 hover-op">'+icon("trash",{size:13,color:WINE})+'</button>'+
           '</div>';
       });
-      html+='<button data-action="add-row" data-id="'+src.id+'" style="color:'+WINE+';font-family:\'Inter\',sans-serif" class="text-xs flex items-center gap-1 mt-2">'+icon("plus",{size:12})+' рядок вручну</button>';
+      html+='<button data-action="add-row" data-id="'+src.id+'" style="color:'+WINE+';font-family:\'Inter\',sans-serif" class="text-xs flex items-center gap-1 mt-2">'+icon("plus",{size:12})+' '+t("add_row")+'</button>';
       if(src.rawText){
-        html+='<button data-action="toggle-open-report" data-id="'+src.id+'" style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif" class="text-xs flex items-center gap-1 mt-2">'+icon("file-text",{size:12})+' '+(S.openReport[src.id]?"сховати повний текст звіту":"переглянути повний текст звіту")+'</button>';
+        html+='<button data-action="toggle-open-report" data-id="'+src.id+'" style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif" class="text-xs flex items-center gap-1 mt-2">'+icon("file-text",{size:12})+' '+(S.openReport[src.id]?t("hide_full_report"):t("show_full_report"))+'</button>';
         if(S.openReport[src.id]){
           html+='<pre style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="text-11 rounded-sm p-3 mt-2 whitespace-pre-wrap max-h-72 overflow-y-auto">'+esc(src.rawText)+'</pre>';
         }
@@ -1081,16 +1655,16 @@ function renderArchive(){
   var items=S.archivedSources.map(function(src){
     return '<div class="flex items-center justify-between px-3 py-2" style="border-bottom:1px dashed '+GOLD+'33">'+
       '<div class="flex items-center gap-2">'+
-      '<span style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif" class="text-xs">'+esc(src.name)+'</span>'+
+      '<span style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif" class="text-xs">'+esc(displaySourceName(src.name))+'</span>'+
       (src.date ? '<span style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif" class="text-10">('+src.date+')</span>' : "") +
       '</div>'+
       '<div class="flex gap-2">'+
-      '<button data-action="restore-source" data-id="'+src.id+'" style="color:'+GREEN+';font-family:\'Inter\',sans-serif" class="text-11">відновити</button>'+
-      '<button data-action="purge-source" data-id="'+src.id+'" style="color:'+WINE+';font-family:\'Inter\',sans-serif" class="text-11">видалити назавжди</button>'+
+      '<button data-action="restore-source" data-id="'+src.id+'" style="color:'+GREEN+';font-family:\'Inter\',sans-serif" class="text-11">'+t("restore")+'</button>'+
+      '<button data-action="purge-source" data-id="'+src.id+'" style="color:'+(S.confirmPurgeId===src.id?PAPER:WINE)+';background:'+(S.confirmPurgeId===src.id?WINE:"transparent")+';font-family:\'Inter\',sans-serif;border:1px solid '+WINE+'55" class="text-11 px-2_5 py-1 rounded-sm">'+(S.confirmPurgeId===src.id?t("clear_log_confirm"):t("purge"))+'</button>'+
       '</div></div>';
   }).join("");
   return '<div class="mb-6"><button data-action="toggle-archive" style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif;border:1px solid '+GOLD+'40" class="text-xs flex items-center gap-1_5 px-3 py-1_5 rounded-sm">'+
-    icon("trash",{size:12})+' архів ('+S.archivedSources.length+')'+'</button>'+
+    icon("trash",{size:12})+' '+t("archive")+' ('+S.archivedSources.length+')'+'</button>'+
     (S.showArchive ? '<div style="background:'+PAPER+'" class="rounded-sm mt-2 reveal">'+items+'</div>' : "") +
     '</div>';
 }
@@ -1106,13 +1680,13 @@ function buildDonut(aggregated){
     var seg='<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="'+BAR_COLORS[i%BAR_COLORS.length]+'" stroke-width="22" '+
       'stroke-dasharray="'+len.toFixed(2)+' '+(circ-len).toFixed(2)+'" stroke-dashoffset="'+(-offset).toFixed(2)+'" '+
       'class="donut-seg" style="transition:stroke-dasharray .6s ease, stroke-dashoffset .6s ease" transform="rotate(-90 '+cx+' '+cy+')">'+
-      '<title>'+esc(g.name)+': '+fmt1(g.avg)+'%</title></circle>';
+      '<title>'+esc(g.name)+(g.en?' / '+esc(g.en):'')+': '+fmt1(g.avg)+'%</title></circle>';
     offset+=len;
     return seg;
   }).join("");
   var legend=aggregated.slice(0,8).map(function(g,i){
     return '<div class="flex items-center gap-1_5"><span style="background:'+BAR_COLORS[i%BAR_COLORS.length]+'" class="w-2 h-2 rounded-full shrink-0"></span>'+
-      '<span style="color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="text-11 truncate">'+(getGroupEmoji(g.name)?getGroupEmoji(g.name)+' ':'')+esc(g.name)+'</span>'+
+      '<span style="color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="text-11 truncate">'+bilingualLabel(g.name,g.en)+'</span>'+
       '<span style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif" class="text-11">'+fmt1(g.avg)+'%</span></div>';
   }).join("");
   return '<div class="flex items-center gap-5 flex-wrap mb-5">'+
@@ -1124,7 +1698,7 @@ function buildDonut(aggregated){
 function renderAggregated(aggregatedFull){
   if(aggregatedFull.length===0) return "";
   var q=(S.filterQuery||"").trim().toLowerCase();
-  var aggregated = q ? aggregatedFull.filter(function(g){ return g.name.toLowerCase().indexOf(q)>=0; }) : aggregatedFull.slice();
+  var aggregated = q ? aggregatedFull.filter(function(g){ return g.name.toLowerCase().indexOf(q)>=0 || (g.en||"").toLowerCase().indexOf(q)>=0; }) : aggregatedFull.slice();
   if(S.groupSort==="name"){
     aggregated.sort(function(a,b){ return a.name.localeCompare(b.name,"uk"); });
   } else if(S.groupSort==="stars"){
@@ -1132,37 +1706,36 @@ function renderAggregated(aggregatedFull){
   } else {
     aggregated.sort(function(a,b){ return b.avg-a.avg; });
   }
-  var sortOptions=[["percent","за %"],["name","за назвою"],["stars","за довірою"]];
+  var sortOptions=[["percent",t("sort_percent")],["name",t("sort_name")],["stars",t("sort_stars")]];
   var sortControls='<div class="flex items-center gap-1_5 mb-4 flex-wrap">'+
-    '<span style="color:'+TEXT_MUTE+';font-family:\'IBM Plex Mono\',monospace" class="text-11 uppercase">сортувати:</span>'+
+    '<span style="color:'+TEXT_MUTE+';font-family:\'IBM Plex Mono\',monospace" class="text-11 uppercase">'+t("sort_by")+'</span>'+
     sortOptions.map(function(o){
       var active=S.groupSort===o[0];
       return '<button data-action="set-group-sort" data-value="'+o[0]+'" style="background:'+(active?GOLD:"transparent")+';color:'+(active?NAVY_DEEP:TEXT_MUTE)+';font-family:\'IBM Plex Mono\',monospace;border:1px solid '+GOLD+'55" class="text-11 px-2 py-0_5 rounded-sm">'+o[1]+'</button>';
     }).join("")+
     '</div>';
   var searchBox = aggregatedFull.length>5 ? (
-    '<input data-bind="filterQuery" value="'+esc(S.filterQuery)+'" placeholder="Пошук групи…" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif;border:1px solid '+GOLD+'55" class="w-full rounded-sm px-3 py-1_5 text-xs mb-4 outline-none" />'
+    '<input data-bind="filterQuery" value="'+esc(S.filterQuery)+'" placeholder="'+esc(t("search_group"))+'" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif;border:1px solid '+GOLD+'55" class="w-full rounded-sm px-3 py-1_5 text-xs mb-4 outline-none" />'
   ) : "";
   if(aggregated.length===0){
     return '<section style="'+accentStyle("#C79A55")+'background:'+PAPER+';box-shadow:0 1px 2px rgba(10,12,20,.06),0 16px 32px rgba(10,12,20,.14)" class="rounded-sm p-5 sm-p-6 mb-6 card-hover paper-texture accent-spine">'+
-      '<h2 style="color:'+TEXT_DARK+';font-family:\'Fraunces\',serif" class="text-lg font-semibold mb-3">Усереднено між джерелами</h2>'+
+      '<h2 style="color:'+TEXT_DARK+';font-family:\'Fraunces\',serif" class="text-lg font-semibold mb-3">'+t("aggregated_title")+'</h2>'+
       searchBox+
-      '<p style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif" class="text-xs">Нічого не знайдено за запитом «'+esc(S.filterQuery)+'».</p></section>';
+      '<p style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif" class="text-xs">'+t("nothing_found",{q:S.filterQuery})+'</p></section>';
   }
-  var maxVal=Math.max.apply(null,[5].concat(aggregated.map(function(g){return g.avg;})))*1.15;
   var chart=aggregated.map(function(g,i){
-    return '<div class="flex items-center gap-2" title="медіана '+fmt1(g.median)+'%, n='+g.n+'">'+
-      '<span style="color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="text-11 w-32 shrink-0 truncate">'+(getGroupEmoji(g.name)?getGroupEmoji(g.name)+' ':'')+esc(g.name)+'</span>'+
+    return '<div class="flex items-center gap-2" title="'+t("median")+' '+fmt1(g.median)+'%, n='+g.n+(g.en?' · '+g.en:'')+'">'+
+      '<span style="color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="text-11 w-36 shrink-0 truncate">'+bilingualLabel(g.name,g.en)+'</span>'+
       '<div style="background:'+PAPER_DIM+'" class="flex-1 h-4 rounded-sm overflow-hidden">'+
-      '<div style="width:'+Math.min(100,(g.avg/maxVal)*100)+'%;background:'+BAR_COLORS[i%BAR_COLORS.length]+'" class="h-full rounded-sm bar-fill"></div></div>'+
+      '<div style="width:'+Math.max(1.5,Math.min(100,g.avg))+'%;background:'+BAR_COLORS[i%BAR_COLORS.length]+'" class="h-full rounded-sm bar-fill"></div></div>'+
       '<span style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif" class="text-11 w-12 text-right">'+fmt1(g.avg)+'%</span></div>';
   }).join("");
 
   var strength=aggregated.map(function(g){
     return '<div class="flex items-center gap-2">'+
-      '<span style="color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="text-xs w-28 shrink-0 truncate">'+(getGroupEmoji(g.name)?getGroupEmoji(g.name)+' ':'')+esc(g.name)+'</span>'+
+      '<span style="color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="text-xs w-32 shrink-0 truncate">'+bilingualLabel(g.name,g.en)+'</span>'+
       '<div style="background:'+PAPER_DIM+'" class="flex-1 h-3 rounded-sm overflow-hidden">'+
-      '<div style="width:'+Math.min(100,g.avg)+'%;background:'+strengthColor(g.avg)+'" class="h-full bar-fill"></div></div>'+
+      '<div style="width:'+Math.max(1.5,Math.min(100,g.avg))+'%;background:'+strengthColor(g.avg)+'" class="h-full bar-fill"></div></div>'+
       '<span style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif" class="text-11 w-10 text-right">'+Math.round(g.avg)+'%</span></div>';
   }).join("");
 
@@ -1170,7 +1743,7 @@ function renderAggregated(aggregatedFull){
   var clusterHtml="";
   if(clusterRollup.length>0){
     clusterHtml='<div class="mb-5"><div class="flex items-center gap-1_5 mb-2">'+icon("layers",{size:14,color:WINE})+
-      '<span style="color:'+TEXT_DARK+';font-family:\'Fraunces\',serif" class="text-sm font-semibold">Кластери (твоє групування)</span></div>'+
+      '<span style="color:'+TEXT_DARK+';font-family:\'Fraunces\',serif" class="text-sm font-semibold">'+t("clusters_title")+'</span></div>'+
       clusterRollup.map(function(c){
         return '<div class="text-xs mb-1" style="font-family:\'Inter\',sans-serif;color:'+TEXT_DARK+'">🌊 '+esc(c.name)+' — <b>'+fmt1(c.avg)+'%</b><span style="color:'+TEXT_MUTE+'"> ('+c.members.map(esc).join(", ")+')</span></div>';
       }).join("")+'</div>';
@@ -1184,12 +1757,12 @@ function renderAggregated(aggregatedFull){
     if(latestVersion){
       var prevEntry=latestVersion.snapshot.find(function(s){return s.name===g.name;});
       if(prevEntry===undefined){
-        deltaBadge='<span title="Нова група відколи збережено '+latestVersion.label+'" style="color:'+GOLD+';font-family:\'Inter\',sans-serif" class="text-11">нове</span>';
+        deltaBadge='<span title="'+latestVersion.label+'" style="color:'+GOLD+';font-family:\'Inter\',sans-serif" class="text-11">'+t("new_badge")+'</span>';
       } else {
         var d=g.avg-prevEntry.avg;
         if(Math.abs(d)>0.05){
           var up=d>0;
-          deltaBadge='<span title="Зміна відколи збережено '+latestVersion.label+'" style="color:'+(up?GREEN:WINE)+';font-family:\'Inter\',sans-serif" class="text-11 flex items-center gap-1">'+
+          deltaBadge='<span title="'+t("delta_since")+" "+latestVersion.label+'" style="color:'+(up?GREEN:WINE)+';font-family:\'Inter\',sans-serif" class="text-11 flex items-center gap-1">'+
             (up?'▲':'▼')+' '+(up?"+":"")+fmt1(d)+'%</span>';
         }
       }
@@ -1197,77 +1770,77 @@ function renderAggregated(aggregatedFull){
     var checklist=allSourceNames.map(function(s){
       var has=g.independentSources.indexOf(s)>=0;
       return '<span style="background:'+(has?GREEN+"22":TEXT_MUTE+"15")+';color:'+(has?GREEN:TEXT_MUTE)+';font-family:\'Inter\',sans-serif" class="text-10 px-1_5 py-0_5 rounded-sm flex items-center gap-1">'+
-        (has?icon("check-circle",{size:10}):icon("x-circle",{size:10}))+' '+esc(s)+'</span>';
+        (has?icon("check-circle",{size:10}):icon("x-circle",{size:10}))+' '+esc(displaySourceName(s))+'</span>';
     }).join("");
     var sci = S.mode==="scientific" ? (
       '<div class="mt-1_5 grid grid-2 sm-grid-4 gap-x-4 gap-y-1 reveal" style="font-family:\'Inter\',sans-serif">'+
-      '<span style="color:'+TEXT_MUTE+'" class="text-11">Медіана: <b style="color:'+TEXT_DARK+'">'+fmt1(g.median)+'%</b></span>'+
-      '<span style="color:'+TEXT_MUTE+'" class="text-11">Std: <b style="color:'+TEXT_DARK+'">'+fmt1(g.std)+'</b></span>'+
-      '<span style="color:'+TEXT_MUTE+'" class="text-11">Діапазон: <b style="color:'+TEXT_DARK+'">'+g.min+'–'+g.max+'%</b></span>'+
-      '<span style="color:'+TEXT_MUTE+'" class="text-11">Узгодженість: <b style="color:'+TEXT_DARK+'">'+Math.round(g.agreement)+'%</b></span></div>'
+      '<span style="color:'+TEXT_MUTE+'" class="text-11">'+t("median")+': <b style="color:'+TEXT_DARK+'">'+fmt1(g.median)+'%</b></span>'+
+      '<span style="color:'+TEXT_MUTE+'" class="text-11">'+t("std")+': <b style="color:'+TEXT_DARK+'">'+fmt1(g.std)+'</b></span>'+
+      '<span style="color:'+TEXT_MUTE+'" class="text-11">'+t("range")+': <b style="color:'+TEXT_DARK+'">'+g.min+'–'+g.max+'%</b></span>'+
+      '<span style="color:'+TEXT_MUTE+'" class="text-11">'+t("agreement")+': <b style="color:'+TEXT_DARK+'">'+Math.round(g.agreement)+'%</b></span></div>'
     ) : "";
     var why="";
     if(S.whyOpen[g.key]){
       var glossaryDef=getGroupGlossary(g.name);
       why='<div style="background:'+PAPER_DIM+'" class="mt-2 rounded-sm p-3 reveal">'+
         '<div class="flex items-center gap-1_5 mb-1_5">'+icon("list-checks",{size:12,color:WINE})+
-        '<span style="color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="text-11 font-medium">Звідки взялось '+fmt1(g.avg)+'%</span></div>'+
+        '<span style="color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="text-11 font-medium">'+t("why_title",{pct:fmt1(g.avg)})+'</span></div>'+
         g.raw.map(function(r){
-          return '<div class="flex justify-between text-11" style="font-family:\'Inter\',sans-serif;color:'+(r.ignored?TEXT_MUTE:TEXT_DARK)+';opacity:'+(r.ignored?0.5:1)+'"><span>'+esc(r.source)+(r.ignored?" (ігнор.)":"")+'</span><span>'+r.percent+'%</span></div>';
+          return '<div class="flex justify-between text-11" style="font-family:\'Inter\',sans-serif;color:'+(r.ignored?TEXT_MUTE:TEXT_DARK)+';opacity:'+(r.ignored?0.5:1)+'"><span>'+esc(r.source)+(r.ignored?" ("+t("ignore").split(" ")[0]+")":"")+'</span><span>'+r.percent+'%</span></div>';
         }).join("")+
-        '<div class="flex justify-between text-11 mt-1 pt-1" style="font-family:\'Inter\',sans-serif;color:'+TEXT_DARK+';border-top:1px dashed '+GOLD+'55"><b>Середнє</b><b>'+fmt1(g.avg)+'%</b></div>'+
-        '<div class="text-11 mt-1_5" style="font-family:\'Inter\',sans-serif;color:'+TEXT_MUTE+'">Довіра рахується по <b>'+g.independentSources.length+'</b> різноназваних джерелах: '+esc(g.independentSources.join(", "))+'. Однаково названі рахуються як одне.</div>'+
+        '<div class="flex justify-between text-11 mt-1 pt-1" style="font-family:\'Inter\',sans-serif;color:'+TEXT_DARK+';border-top:1px dashed '+GOLD+'55"><b>'+t("avg")+'</b><b>'+fmt1(g.avg)+'%</b></div>'+
+        '<div class="text-11 mt-1_5" style="font-family:\'Inter\',sans-serif;color:'+TEXT_MUTE+'">'+t("trust_note",{n:g.independentSources.length, list:esc(g.independentSources.join(", "))})+'</div>'+
         '<div class="mt-2 pt-2" style="border-top:1px dashed '+GOLD+'55">'+
-        '<div class="flex items-center gap-1_5 mb-1">'+icon("help-circle",{size:12,color:WINE})+'<span style="color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="text-11 font-medium">Що означає ця категорія</span></div>'+
+        '<div class="flex items-center gap-1_5 mb-1">'+icon("help-circle",{size:12,color:WINE})+'<span style="color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="text-11 font-medium">'+t("what_means")+'</span></div>'+
         '<div class="text-11" style="font-family:\'Source Serif 4\',serif;color:'+TEXT_MUTE+';line-height:1.5">'+
-        (glossaryDef ? esc(glossaryDef) : "Немає усталеного наукового визначення для цієї назви — ймовірно, це специфічний термін конкретного калькулятора або лабораторії, а не загальновживана популяційна категорія.") +
+        (glossaryDef ? esc(glossaryDef) : t("no_glossary")) +
         '</div></div></div>';
     }
     return '<div style="border-top:1px solid '+GOLD+'33" class="pt-3">'+
       '<div class="flex items-center justify-between flex-wrap gap-1_5">'+
       '<div class="flex items-center gap-2">'+
       '<span style="background:'+BAR_COLORS[i%BAR_COLORS.length]+'" class="w-2 h-2 rounded-full shrink-0"></span>'+
-      '<span style="color:'+TEXT_DARK+';font-family:\'Fraunces\',serif" class="font-semibold">'+(getGroupEmoji(g.name)?getGroupEmoji(g.name)+' ':'')+esc(g.name)+'</span>'+
-      (g.conflict? '<span title="Джерела суперечать одне одному" class="flex items-center gap-1" style="color:'+WINE+'">'+icon("alert-triangle",{size:13})+'<span style="font-family:\'Inter\',sans-serif" class="text-11">конфлікт</span></span>' : "") +
+      '<span style="color:'+TEXT_DARK+';font-family:\'Fraunces\',serif" class="font-semibold">'+bilingualLabel(g.name,g.en)+'</span>'+
+      (g.conflict? '<span title="'+esc(t("conflict_title"))+'" class="flex items-center gap-1" style="color:'+WINE+'">'+icon("alert-triangle",{size:13})+'<span style="font-family:\'Inter\',sans-serif" class="text-11">'+t("conflict")+'</span></span>' : "") +
       '</div>'+
       '<div class="flex items-center gap-3">'+
       '<span title="'+sup.label+'">'+sup.emoji+'</span>'+
       starsHtml(g.stars, g.independentSources.length)+
       deltaBadge+
       '<span data-count-to="'+g.avg+'" style="color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="text-sm font-medium">'+(S.animateNumbersNextRender?"0.0":fmt1(g.avg))+'%</span>'+
-      '<button data-action="toggle-why" data-key="'+esc(g.key)+'" title="Чому саме таке число?" style="color:'+WINE+'">'+icon("help-circle",{size:15})+'</button>'+
+      '<button data-action="toggle-why" data-key="'+esc(g.key)+'" title="'+esc(t("why_btn_title"))+'" style="color:'+WINE+'">'+icon("help-circle",{size:15})+'</button>'+
       '</div></div>'+
       sci+
       '<div class="mt-1_5 flex flex-wrap gap-1_5">'+checklist+'</div>'+
       why+
-      '<div class="mt-2"><input data-bind-cluster="1" data-key="'+esc(g.key)+'" data-name="'+esc(g.name)+'" value="'+esc(g.cluster)+'" placeholder="об\'єднати в кластер (напр. Mediterranean)…" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif;border:1px dashed '+GOLD+'55" class="text-xs rounded-sm px-2 py-1 outline-none w-full sm-w-64" /></div>'+
-      '<div class="mt-1_5"><textarea data-bind-note="1" data-key="'+esc(g.key)+'" placeholder="твої нотатки (не автогенеровані)…" rows="1" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Source Serif 4\',serif;font-style:italic;border:1px dashed '+GOLD+'40" class="text-xs rounded-sm px-2 py-1 outline-none w-full resize-y">'+esc(S.notes[g.key]||"")+'</textarea></div>'+
+      '<div class="mt-2"><input data-bind-cluster="1" data-key="'+esc(g.key)+'" data-name="'+esc(g.name)+'" value="'+esc(g.cluster)+'" placeholder="'+esc(t("cluster_ph"))+'" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif;border:1px dashed '+GOLD+'55" class="text-xs rounded-sm px-2 py-1 outline-none w-full sm-w-64" /></div>'+
+      '<div class="mt-1_5"><textarea data-bind-note="1" data-key="'+esc(g.key)+'" placeholder="'+esc(t("notes_ph"))+'" rows="1" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Source Serif 4\',serif;font-style:italic;border:1px dashed '+GOLD+'40" class="text-xs rounded-sm px-2 py-1 outline-none w-full resize-y">'+esc(S.notes[g.key]||"")+'</textarea></div>'+
       '</div>';
   }).join("");
 
   var aiSection='<div class="mt-6 pt-4" style="border-top:1px solid '+GOLD+'33">'+
-    '<input type="password" data-bind="apiKey" value="'+esc(S.apiKey)+'" placeholder="Anthropic API-ключ для AI-коментаря (необов\'язково, sk-ant-…, лише в пам\'яті сесії)" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif;border:1px dashed '+GOLD+'55" class="w-full rounded-sm px-3 py-2 text-xs mb-2 outline-none" />'+
+    '<input type="password" data-bind="apiKey" value="'+esc(S.apiKey)+'" placeholder="'+esc(t("ai_key_ph"))+'" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif;border:1px dashed '+GOLD+'55" class="w-full rounded-sm px-3 py-2 text-xs mb-2 outline-none" />'+
     '<button data-action="ask-ai" '+(S.aiLoading?"disabled":"")+' style="background:'+NAVY_DEEP+';color:'+GOLD+';font-family:\'Inter\',sans-serif" class="rounded-sm px-4 py-2 text-xs font-medium flex items-center gap-2">'+
-    (S.aiLoading?icon("loader",{size:13}):icon("sparkles",{size:13}))+' '+(S.aiLoading?"аналізую…":"AI-коментар (обережний, без нових цифр)")+'</button>'+
+    (S.aiLoading?icon("loader",{size:13}):icon("sparkles",{size:13}))+' '+(S.aiLoading?t("ai_loading"):t("ai_btn"))+'</button>'+
     (S.aiComment? '<p style="color:'+TEXT_DARK+';font-family:\'Source Serif 4\',serif" class="mt-3 text-sm leading-relaxed reveal">'+esc(S.aiComment)+'</p>' : "") +
     '</div>';
 
   return '<section style="'+accentStyle("#C79A55")+'background:'+PAPER+';box-shadow:0 1px 2px rgba(10,12,20,.06),0 16px 32px rgba(10,12,20,.14)" class="rounded-sm p-5 sm-p-6 mb-6 card-hover paper-texture accent-spine">'+
     '<div class="flex items-center justify-between mb-1 flex-wrap gap-2">'+
-    '<h2 style="color:'+TEXT_DARK+';font-family:\'Fraunces\',serif" class="text-lg font-semibold">Усереднено між джерелами</h2>'+
+    '<h2 style="color:'+TEXT_DARK+';font-family:\'Fraunces\',serif" class="text-lg font-semibold">'+t("aggregated_title")+'</h2>'+
     '<div class="flex gap-1_5 flex-wrap">'+
-    '<button data-action="save-version" style="color:'+WINE+';font-family:\'Inter\',sans-serif;border:1px solid '+WINE+'55" class="text-xs flex items-center gap-1 px-2 py-1 rounded-sm">'+icon("history",{size:12})+' версія (W'+(S.versions.length+1)+')</button>'+
-    '<button data-action="export-json" style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif;border:1px solid '+GOLD+'55" class="text-xs flex items-center gap-1 px-2 py-1 rounded-sm">'+icon("download",{size:12})+' JSON</button>'+
-    '<button data-action="export-csv" style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif;border:1px solid '+GOLD+'55" class="text-xs flex items-center gap-1 px-2 py-1 rounded-sm">'+icon("download",{size:12})+' CSV</button>'+
-    '<button data-action="export-pdf" style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif;border:1px solid '+GOLD+'55" class="text-xs flex items-center gap-1 px-2 py-1 rounded-sm">'+icon("download",{size:12})+' PDF (друк)</button>'+
-    '<button data-action="export-png" style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif;border:1px solid '+GOLD+'55" class="text-xs flex items-center gap-1 px-2 py-1 rounded-sm">'+icon("download",{size:12})+' PNG (для соцмереж)</button>'+
+    '<button data-action="save-version" style="color:'+WINE+';font-family:\'Inter\',sans-serif;border:1px solid '+WINE+'55" class="text-xs flex items-center gap-1 px-2 py-1 rounded-sm">'+icon("history",{size:12})+' '+t("version_btn",{n:S.versions.length+1})+'</button>'+
+    '<button data-action="export-json" style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif;border:1px solid '+GOLD+'55" class="text-xs flex items-center gap-1 px-2 py-1 rounded-sm">'+icon("download",{size:12})+' '+t("export_json")+'</button>'+
+    '<button data-action="export-csv" style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif;border:1px solid '+GOLD+'55" class="text-xs flex items-center gap-1 px-2 py-1 rounded-sm">'+icon("download",{size:12})+' '+t("export_csv")+'</button>'+
+    '<button data-action="export-pdf" style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif;border:1px solid '+GOLD+'55" class="text-xs flex items-center gap-1 px-2 py-1 rounded-sm">'+icon("download",{size:12})+' '+t("export_pdf")+'</button>'+
+    '<button data-action="export-png" style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif;border:1px solid '+GOLD+'55" class="text-xs flex items-center gap-1 px-2 py-1 rounded-sm">'+icon("download",{size:12})+' '+t("export_png")+'</button>'+
     '</div></div>'+
-    '<p style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif" class="text-xs mb-4">Узгодь назви груп вище, щоб вони склались правильно. Довіра ★ враховує кількість незалежних джерел і те, наскільки вони узгоджені.</p>'+
+    '<p style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif" class="text-xs mb-4">'+t("aggregated_hint")+'</p>'+
     sortControls+
     searchBox+
     buildDonut(aggregated)+
     '<div class="space-y-2">'+chart+'</div>'+
-    '<div class="mt-5 mb-2"><span style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif" class="text-11 uppercase">Сила сигналу (замість географічної карти — назви груп не завжди однозначно мапляться на країни)</span></div>'+
+    '<div class="mt-5 mb-2"><span style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif" class="text-11 uppercase">'+t("signal_strength")+'</span></div>'+
     '<div class="space-y-1_5 mb-5">'+strength+'</div>'+
     clusterHtml+
     '<div class="space-y-3">'+details+'</div>'+
@@ -1281,34 +1854,35 @@ function renderAgreementIndex(aggregated){
   var rows=sorted.map(function(g){
     var col = g.agreement>=85?GREEN:(g.agreement>=65?"#B0973F":WINE);
     return '<div class="flex items-center gap-2">'+
-      '<span style="color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="text-xs w-32 shrink-0 truncate">'+(getGroupEmoji(g.name)?getGroupEmoji(g.name)+' ':'')+esc(g.name)+'</span>'+
-      '<div style="background:'+PAPER_DIM+'" class="flex-1 h-2_5 rounded-sm overflow-hidden"><div style="width:'+g.agreement+'%;background:'+col+'" class="h-full bar-fill"></div></div>'+
+      '<span style="color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="text-xs w-36 shrink-0 truncate">'+bilingualLabel(g.name,g.en)+'</span>'+
+      '<div style="background:'+PAPER_DIM+'" class="flex-1 h-2_5 rounded-sm overflow-hidden"><div style="width:'+Math.max(1.5,g.agreement)+'%;background:'+col+'" class="h-full bar-fill"></div></div>'+
       '<span style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif" class="text-11 w-10 text-right">'+Math.round(g.agreement)+'%</span></div>';
   }).join("");
   return '<section style="'+accentStyle("#4F7C8C")+'background:'+PAPER+';box-shadow:0 1px 2px rgba(10,12,20,.06),0 16px 32px rgba(10,12,20,.14)" class="rounded-sm p-5 sm-p-6 mb-6 card-hover paper-texture accent-spine">'+
-    '<h2 style="color:'+TEXT_DARK+';font-family:\'Fraunces\',serif" class="text-lg font-semibold mb-1">Індекс узгодженості</h2>'+
-    '<p style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif" class="text-xs mb-4">Не "це правда", а наскільки різні джерела погоджуються між собою по кожній групі.</p>'+
+    '<h2 style="color:'+TEXT_DARK+';font-family:\'Fraunces\',serif" class="text-lg font-semibold mb-1">'+t("agreement_title")+'</h2>'+
+    '<p style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif" class="text-xs mb-4">'+t("agreement_hint")+' </p>'+
     '<div class="space-y-1_5">'+rows+'</div></section>';
 }
 
 function renderDecisionLog(){
   if(S.decisionLog.length===0) return "";
   var items=S.decisionLog.slice().reverse().map(function(d){
-    return '<div class="text-xs" style="font-family:\'Inter\',sans-serif"><span style="color:'+TEXT_DARK+'">'+esc(d.description)+'</span><span style="color:'+TEXT_MUTE+'"> — '+new Date(d.ts).toLocaleDateString("uk-UA")+'</span></div>';
+    var desc = d.key ? t(d.key,d.vars) : (d.description||"");
+    return '<div class="text-xs" style="font-family:\'Inter\',sans-serif"><span style="color:'+TEXT_DARK+'">'+esc(desc)+'</span><span style="color:'+TEXT_MUTE+'"> — '+new Date(d.ts).toLocaleDateString(S.lang==="en"?"en-GB":"uk-UA")+'</span></div>';
   }).join("");
   return '<section style="'+accentStyle("#6B8A57")+'background:'+PAPER+';box-shadow:0 1px 2px rgba(10,12,20,.06),0 16px 32px rgba(10,12,20,.14)" class="rounded-sm p-5 sm-p-6 mb-6 card-hover paper-texture accent-spine">'+
     '<div class="flex items-center justify-between mb-3 flex-wrap gap-2">'+
-    '<h2 style="color:'+TEXT_DARK+';font-family:\'Fraunces\',serif" class="text-lg font-semibold">Журнал рішень</h2>'+
-    '<button data-action="clear-decision-log" style="color:'+(S.confirmClearLog?PAPER:WINE)+';background:'+(S.confirmClearLog?WINE:"transparent")+';font-family:\'IBM Plex Mono\',monospace;border:1px solid '+WINE+'55" class="text-11 px-2_5 py-1 rounded-sm">'+(S.confirmClearLog?"натисни ще раз, щоб підтвердити":"очистити журнал")+'</button>'+
+    '<h2 style="color:'+TEXT_DARK+';font-family:\'Fraunces\',serif" class="text-lg font-semibold">'+t("decision_log")+'</h2>'+
+    '<button data-action="clear-decision-log" style="color:'+(S.confirmClearLog?PAPER:WINE)+';background:'+(S.confirmClearLog?WINE:"transparent")+';font-family:\'IBM Plex Mono\',monospace;border:1px solid '+WINE+'55" class="text-11 px-2_5 py-1 rounded-sm">'+(S.confirmClearLog?t("clear_log_confirm"):t("clear_log"))+'</button>'+
     '</div>'+
     '<div class="space-y-1_5">'+items+'</div></section>';
 }
 
 function renderVersions(){
   if(S.versions.length===0) return "";
-  var selA='<select data-bind="compareA" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+'" class="text-xs rounded-sm px-2 py-1_5"><option value="">Версія A…</option>'+
+  var selA='<select data-bind="compareA" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+'" class="text-xs rounded-sm px-2 py-1_5"><option value="">'+t("version_a")+'</option>'+
     S.versions.map(function(v){return '<option value="'+v.id+'" '+(S.compareA===v.id?"selected":"")+'>'+v.label+'</option>';}).join("")+'</select>';
-  var selB='<select data-bind="compareB" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+'" class="text-xs rounded-sm px-2 py-1_5"><option value="">Версія B…</option>'+
+  var selB='<select data-bind="compareB" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+'" class="text-xs rounded-sm px-2 py-1_5"><option value="">'+t("version_b")+'</option>'+
     S.versions.map(function(v){return '<option value="'+v.id+'" '+(S.compareB===v.id?"selected":"")+'>'+v.label+'</option>';}).join("")+'</select>';
   var compareHtml="";
   if(S.versions.length>=2){
@@ -1324,7 +1898,7 @@ function renderVersions(){
         var b=vB.snapshot.find(function(s){return s.name===name;});
         var av=a?a.avg:undefined, bv=b?b.avg:undefined;
         var diff=(av!==undefined && bv!==undefined) ? bv-av : null;
-        var diffHtml = diff===null ? "н/д" : (Math.abs(diff)<0.05 ? "без змін" : '<span style="color:'+(diff>0?GREEN:WINE)+'">'+(diff>0?"+":"")+fmt1(diff)+'%</span>');
+        var diffHtml = diff===null ? t("n_a") : (Math.abs(diff)<0.05 ? t("no_change") : '<span style="color:'+(diff>0?GREEN:WINE)+'">'+(diff>0?"+":"")+fmt1(diff)+'%</span>');
         return '<div class="flex justify-between text-xs" style="font-family:\'Inter\',sans-serif"><span style="color:'+TEXT_DARK+'">'+esc(name)+'</span><span style="color:'+TEXT_MUTE+'">'+diffHtml+'</span></div>';
       }).join("");
       compareHtml+='<div style="background:'+PAPER_DIM+'" class="rounded-sm p-3 mb-4 space-y-1">'+
@@ -1341,18 +1915,18 @@ function renderVersions(){
     }).join("");
     return '<div><div class="flex items-center gap-2 mb-1">'+
       '<span style="color:'+WINE+';font-family:\'Inter\',sans-serif" class="text-xs font-semibold">'+v.label+'</span>'+
-      '<span style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif" class="text-10">'+new Date(v.ts).toLocaleString("uk-UA")+'</span></div>'+
+      '<span style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif" class="text-10">'+new Date(v.ts).toLocaleString(S.lang==="en"?"en-GB":"uk-UA")+'</span></div>'+
       '<div class="grid" style="gap:.125rem">'+rows+'</div></div>';
   }).join("");
   return '<section style="'+accentStyle("#8C6A9B")+'background:'+PAPER+';box-shadow:0 1px 2px rgba(10,12,20,.06),0 16px 32px rgba(10,12,20,.14)" class="rounded-sm p-5 sm-p-6 mb-6 card-hover paper-texture accent-spine">'+
-    '<div class="flex items-center gap-2 mb-4">'+icon("history",{size:18,color:"#8C6A9B"})+'<h2 style="color:'+TEXT_DARK+';font-family:\'Fraunces\',serif" class="text-lg font-semibold">Історія версій</h2></div>'+
+    '<div class="flex items-center gap-2 mb-4">'+icon("history",{size:18,color:"#8C6A9B"})+'<h2 style="color:'+TEXT_DARK+';font-family:\'Fraunces\',serif" class="text-lg font-semibold">'+t("versions_title")+'</h2></div>'+
     compareHtml+'<div class="space-y-3">'+list+'</div></section>';
 }
 
 function getRelativesByNation(){
   var map={};
   S.matches.forEach(function(m){
-    var nation=(m.nation||"").trim() || "не вказано";
+    var nation=(m.nation||"").trim() || t("not_specified");
     if(!map[nation]) map[nation]={nation:nation, count:0, totalCm:0};
     map[nation].count++;
     var cmVal=parseFloat(m.cm);
@@ -1368,7 +1942,8 @@ function getRelativesByNation(){
 }
 
 function renderAncestors(){
-  var items=S.ancestors.map(function(a){
+  var items=S.ancestors.map(function(araw){
+    var a=demoView(araw);
     return '<div class="flex items-start justify-between gap-2 py-2'+(a.id===S.justAddedId?' pop-in':'')+'" style="border-bottom:1px dashed '+GOLD+'33">'+
       '<div>'+
       '<div class="flex items-center gap-2 flex-wrap">'+
@@ -1378,19 +1953,19 @@ function renderAncestors(){
       '</div>'+
       (a.note ? '<div style="color:'+TEXT_MUTE+';font-family:\'Source Serif 4\',serif" class="text-xs mt-0_5">'+esc(a.note)+'</div>' : "") +
       '</div>'+
-      '<button data-action="remove-ancestor" data-id="'+a.id+'" aria-label="Видалити пращура" class="p-1 opacity-50 hover-op shrink-0">'+icon("trash",{size:13,color:WINE})+'</button>'+
+      '<button data-action="remove-ancestor" data-id="'+araw.id+'" aria-label="'+esc(t("remove_ancestor_aria"))+'" class="p-1 opacity-50 hover-op shrink-0">'+icon("trash",{size:13,color:WINE})+'</button>'+
       '</div>';
   }).join("");
   return '<section style="'+accentStyle("#A65B4A")+'background:'+PAPER+';box-shadow:0 1px 2px rgba(10,12,20,.06),0 16px 32px rgba(10,12,20,.14)" class="rounded-sm p-5 sm-p-6 mb-6 card-hover paper-texture accent-spine">'+
-    '<div class="flex items-center gap-2 mb-1">'+icon("book-open",{size:18,color:"#A65B4A"})+'<h2 style="color:'+TEXT_DARK+';font-family:\'Fraunces\',serif" class="text-lg font-semibold">Відомі пращури (документально)</h2></div>'+
-    '<p style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif" class="text-xs mb-4">Те, що ти знаєш з документів/родини — просто лежить поруч із ДНК-групами. Жодного автоматичного зіставлення чи вердикту — тільки твоя нотатка, зведена в одному місці.</p>'+
+    '<div class="flex items-center gap-2 mb-1">'+icon("book-open",{size:18,color:"#A65B4A"})+'<h2 style="color:'+TEXT_DARK+';font-family:\'Fraunces\',serif" class="text-lg font-semibold">'+t("ancestors_title")+'</h2></div>'+
+    '<p style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif" class="text-xs mb-4">'+t("ancestors_hint")+'</p>'+
     '<div class="grid grid-2 sm-grid-4 gap-2 mb-2">'+
-    '<input data-bind="newAncestorName" value="'+esc(S.newAncestorName)+'" placeholder="Ім\'я пращура" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="rounded-sm px-2 py-1_5 text-xs outline-none" />'+
-    '<input data-bind="newAncestorNation" value="'+esc(S.newAncestorNation)+'" placeholder="Задокументована нація" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="rounded-sm px-2 py-1_5 text-xs outline-none" />'+
-    '<input data-bind="newAncestorGeneration" value="'+esc(S.newAncestorGeneration)+'" placeholder="Покоління (напр. прадід, ~1890)" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="rounded-sm px-2 py-1_5 text-xs outline-none" />'+
-    '<input data-bind="newAncestorNote" value="'+esc(S.newAncestorNote)+'" placeholder="Звідки знаєш (метрика, спогади…)" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="rounded-sm px-2 py-1_5 text-xs outline-none" />'+
+    '<input data-bind="newAncestorName" value="'+esc(S.newAncestorName)+'" placeholder="'+esc(t("ancestor_name_ph"))+'" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="rounded-sm px-2 py-1_5 text-xs outline-none" />'+
+    '<input data-bind="newAncestorNation" value="'+esc(S.newAncestorNation)+'" placeholder="'+esc(t("ancestor_nation_ph"))+'" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="rounded-sm px-2 py-1_5 text-xs outline-none" />'+
+    '<input data-bind="newAncestorGeneration" value="'+esc(S.newAncestorGeneration)+'" placeholder="'+esc(t("ancestor_gen_ph"))+'" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="rounded-sm px-2 py-1_5 text-xs outline-none" />'+
+    '<input data-bind="newAncestorNote" value="'+esc(S.newAncestorNote)+'" placeholder="'+esc(t("ancestor_note_ph"))+'" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="rounded-sm px-2 py-1_5 text-xs outline-none" />'+
     '</div>'+
-    '<button data-action="add-ancestor" style="color:'+WINE+';font-family:\'Inter\',sans-serif" class="text-xs flex items-center gap-1 mb-2">'+icon("plus",{size:12})+' додати пращура</button>'+
+    '<button data-action="add-ancestor" style="color:'+WINE+';font-family:\'Inter\',sans-serif" class="text-xs flex items-center gap-1 mb-2">'+icon("plus",{size:12})+' '+t("add_ancestor")+'</button>'+
     (items ? '<div class="mt-2">'+items+'</div>' : "") +
   '</section>';
 }
@@ -1401,7 +1976,7 @@ function renderMatches(){
 
   var summaryHtml="";
   if(S.matches.length>0){
-    summaryHtml='<div class="mb-4"><div style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif" class="text-11 uppercase mb-2">Звідки родичі (за national. поля)</div>'+
+    summaryHtml='<div class="mb-4"><div style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif" class="text-11 uppercase mb-2">'+t("relatives_from")+'</div>'+
       '<div class="space-y-1_5">'+byNation.map(function(n,i){
         return '<button data-action="filter-nation" data-value="'+esc(n.nation)+'" class="flex items-center gap-2 w-full text-left" style="opacity:'+(S.matchNationFilter && S.matchNationFilter!==n.nation?0.45:1)+'">'+
           '<span style="color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="text-11 w-28 shrink-0 truncate">'+esc(n.nation)+'</span>'+
@@ -1409,13 +1984,13 @@ function renderMatches(){
           '<span style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif" class="text-11 w-14 text-right">'+n.count+' ('+Math.round(n.pct)+'%)</span>'+
           '</button>';
       }).join("")+'</div>'+
-      (S.matchNationFilter ? '<button data-action="filter-nation" data-value="" style="color:'+WINE+';font-family:\'Inter\',sans-serif" class="text-11 mt-2">✕ скинути фільтр «'+esc(S.matchNationFilter)+'»</button>' : "") +
+      (S.matchNationFilter ? '<button data-action="filter-nation" data-value="" style="color:'+WINE+';font-family:\'Inter\',sans-serif" class="text-11 mt-2">'+t("reset_filter",{n:S.matchNationFilter})+'</button>' : "") +
       '</div>';
   }
 
   var visibleMatches=S.matches.filter(function(m){
     if(!S.matchNationFilter) return true;
-    return (m.nation||"не вказано")===S.matchNationFilter;
+    return (m.nation||t("not_specified"))===S.matchNationFilter;
   });
   if(S.matchSortByCm){
     visibleMatches=visibleMatches.slice().sort(function(a,b){
@@ -1425,41 +2000,43 @@ function renderMatches(){
     });
   }
 
-  var header = S.matches.length>0 ? '<div class="grid grid-match gap-2 mb-1_5">'+["Ім'я / нік","Джерело","сМ","Нація","Примітка (лінія)",""].map(function(h){
+  var header = S.matches.length>0 ? '<div class="grid grid-match gap-2 mb-1_5">'+[t("col_name"),t("col_source"),t("col_cm"),t("col_nation"),t("col_note"),""].map(function(h){
     return '<span style="color:'+TEXT_MUTE+';font-family:\'Inter\',sans-serif" class="text-11 uppercase">'+h+'</span>';
   }).join("")+'</div>' : "";
-  var rows=visibleMatches.map(function(m){
-    return '<div class="grid grid-match gap-2 mb-1_5'+(m.id===S.justAddedId?' pop-in':'')+'">'+
-      '<input data-bind-match="name" data-id="'+m.id+'" value="'+esc(m.name)+'" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="rounded-sm px-2 py-1_5 text-xs outline-none" />'+
-      '<input data-bind-match="source" data-id="'+m.id+'" value="'+esc(m.source)+'" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="rounded-sm px-2 py-1_5 text-xs outline-none" />'+
-      '<input type="number" data-bind-match="cm" data-id="'+m.id+'" value="'+esc(m.cm)+'" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="rounded-sm px-2 py-1_5 text-xs outline-none" />'+
-      '<input data-bind-match="nation" data-id="'+m.id+'" value="'+esc(m.nation||"")+'" placeholder="напр. Норвегія" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="rounded-sm px-2 py-1_5 text-xs outline-none" />'+
-      '<input data-bind-match="note" data-id="'+m.id+'" value="'+esc(m.note)+'" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="rounded-sm px-2 py-1_5 text-xs outline-none" />'+
-      '<button data-action="remove-match" data-id="'+m.id+'" aria-label="Видалити збіг" class="flex items-center justify-center opacity-50 hover-op">'+icon("trash",{size:13,color:WINE})+'</button></div>';
+  var rows=visibleMatches.map(function(mraw){
+    var m=demoView(mraw);
+    return '<div class="grid grid-match gap-2 mb-1_5'+(mraw.id===S.justAddedId?' pop-in':'')+'">'+
+      '<input data-bind-match="name" data-id="'+mraw.id+'" value="'+esc(m.name)+'" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="rounded-sm px-2 py-1_5 text-xs outline-none" />'+
+      '<input data-bind-match="source" data-id="'+mraw.id+'" value="'+esc(m.source)+'" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="rounded-sm px-2 py-1_5 text-xs outline-none" />'+
+      '<input type="number" data-bind-match="cm" data-id="'+mraw.id+'" value="'+esc(m.cm)+'" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="rounded-sm px-2 py-1_5 text-xs outline-none" />'+
+      '<input data-bind-match="nation" data-id="'+mraw.id+'" value="'+esc(m.nation||"")+'" placeholder="'+esc(t("nation_ph"))+'" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="rounded-sm px-2 py-1_5 text-xs outline-none" />'+
+      '<input data-bind-match="note" data-id="'+mraw.id+'" value="'+esc(m.note)+'" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif" class="rounded-sm px-2 py-1_5 text-xs outline-none" />'+
+      '<button data-action="remove-match" data-id="'+mraw.id+'" aria-label="'+esc(t("remove_match_aria"))+'" class="flex items-center justify-center opacity-50 hover-op">'+icon("trash",{size:13,color:WINE})+'</button></div>';
   }).join("");
   var canBulk=S.bulkMatchText.trim().length>0;
   return '<section style="'+accentStyle("#5B6B8C")+'background:'+PAPER+';box-shadow:0 1px 2px rgba(10,12,20,.06),0 16px 32px rgba(10,12,20,.14)" class="rounded-sm p-5 sm-p-6 card-hover paper-texture accent-spine">'+
     '<div class="flex items-center justify-between flex-wrap gap-2 mb-4">'+
-    '<div class="flex items-center gap-2">'+icon("users",{size:18,color:"#5B6B8C"})+'<h2 style="color:'+TEXT_DARK+';font-family:\'Fraunces\',serif" class="text-lg font-semibold">Збіги з родичами (сМ)</h2></div>'+
-    (S.matches.length>1 ? '<button data-action="toggle-sort-cm" style="color:'+(S.matchSortByCm?WINE:TEXT_MUTE)+';font-family:\'Inter\',sans-serif;border:1px solid '+GOLD+'55" class="text-11 px-2_5 py-1 rounded-sm">сортувати за сМ '+(S.matchSortByCm?"✓":"")+'</button>' : "") +
+    '<div class="flex items-center gap-2">'+icon("users",{size:18,color:"#5B6B8C"})+'<h2 style="color:'+TEXT_DARK+';font-family:\'Fraunces\',serif" class="text-lg font-semibold">'+t("matches_title")+'</h2></div>'+
+    (S.matches.length>1 ? '<button data-action="toggle-sort-cm" style="color:'+(S.matchSortByCm?WINE:TEXT_MUTE)+';font-family:\'Inter\',sans-serif;border:1px solid '+GOLD+'55" class="text-11 px-2_5 py-1 rounded-sm">'+t("sort_cm")+' '+(S.matchSortByCm?"✓":"")+'</button>' : "") +
     '</div>'+
     '<div class="mb-4">'+
-    '<textarea data-bind="bulkMatchText" placeholder="Встав список одразу, по одному на рядок, напр.:&#10;Іван Петренко — 245 cM — 2nd cousin, лінія Ковальських&#10;Марія С. 89 сМ ймовірно 3rd cousin" rows="4" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif;border:1px solid '+GOLD+'55" class="w-full rounded-sm px-3 py-2 text-xs mb-2 outline-none resize-y">'+esc(S.bulkMatchText)+'</textarea>'+
-    '<button data-action="add-matches-bulk" '+(canBulk?"":"disabled")+' style="background:'+(canBulk?WINE:"#B7ADA0")+';color:'+PAPER+';font-family:\'Inter\',sans-serif" class="rounded-sm px-3 py-1_5 text-xs font-medium flex items-center gap-2">'+icon("plus",{size:13})+' розпізнати й додати список</button>'+
+    '<textarea data-bind="bulkMatchText" placeholder="'+esc(t("bulk_match_ph"))+'" rows="4" style="background:'+PAPER_DIM+';color:'+TEXT_DARK+';font-family:\'Inter\',sans-serif;border:1px solid '+GOLD+'55" class="w-full rounded-sm px-3 py-2 text-xs mb-2 outline-none resize-y">'+esc(S.bulkMatchText)+'</textarea>'+
+    '<button data-action="add-matches-bulk" '+(canBulk?"":"disabled")+' style="background:'+(canBulk?WINE:"#B7ADA0")+';color:'+PAPER+';font-family:\'Inter\',sans-serif" class="rounded-sm px-3 py-1_5 text-xs font-medium flex items-center gap-2">'+icon("plus",{size:13})+' '+t("recognize_list")+'</button>'+
     '</div>'+
     summaryHtml+
     header+rows+
-    '<button data-action="add-match" style="color:'+WINE+';font-family:\'Inter\',sans-serif" class="text-xs flex items-center gap-1 mt-2">'+icon("plus",{size:12})+' додати збіг</button>'+
+    '<button data-action="add-match" style="color:'+WINE+';font-family:\'Inter\',sans-serif" class="text-xs flex items-center gap-1 mt-2">'+icon("plus",{size:12})+' '+t("add_match")+'</button>'+
   '</section>';
 }
 
 function renderUndoBanner(){
   if(!S.undoAction) return "";
+  var labelText = S.undoAction.labelKey ? t(S.undoAction.labelKey, S.undoAction.labelVars) : (S.undoAction.label||"");
   return '<div class="reveal rounded-sm p-3 mb-4 flex items-center justify-between flex-wrap gap-2" style="background:'+NAVY_DEEP+';border:1px solid '+GOLD+'66">'+
-    '<span style="color:'+INK+';font-family:\'IBM Plex Mono\',monospace" class="text-xs">Видалено '+esc(S.undoAction.label)+'.</span>'+
+    '<span style="color:'+INK+';font-family:\'IBM Plex Mono\',monospace" class="text-xs">'+t("deleted",{label:esc(labelText)})+'</span>'+
     '<div class="flex gap-2">'+
-    '<button data-action="perform-undo" style="background:'+GOLD+';color:'+NAVY_DEEP+';font-family:\'IBM Plex Mono\',monospace" class="text-11 px-2_5 py-1 rounded-sm font-medium">Скасувати</button>'+
-    '<button data-action="dismiss-undo" aria-label="Закрити повідомлення" style="color:#8B92A8;font-family:\'IBM Plex Mono\',monospace" class="text-11 px-2_5 py-1">✕</button>'+
+    '<button data-action="perform-undo" style="background:'+GOLD+';color:'+NAVY_DEEP+';font-family:\'IBM Plex Mono\',monospace" class="text-11 px-2_5 py-1 rounded-sm font-medium">'+t("undo")+'</button>'+
+    '<button data-action="dismiss-undo" aria-label="'+esc(t("dismiss"))+'" style="color:#8B92A8;font-family:\'IBM Plex Mono\',monospace" class="text-11 px-2_5 py-1">✕</button>'+
     '</div></div>';
 }
 
@@ -1468,19 +2045,19 @@ function renderFooter(){
   if(S.sources.length>0){
     var days = S.lastBackupTs ? Math.floor((Date.now()-S.lastBackupTs)/86400000) : null;
     var stale = days===null || days>7;
-    var text = days===null ? "бекап (JSON) ще не робився" : (days===0 ? "бекап робився сьогодні" : "останній бекап "+days+" "+(days===1?"день":"днів")+" тому");
+    var text = days===null ? t("backup_never") : (days===0 ? t("backup_today") : t("backup_days",{d:days, unit:(days===1?t("day_one"):t("day_many"))}));
     backupLine='<div class="flex items-center justify-center gap-1_5 mt-2">'+
       icon("alert-triangle",{size:11,color:stale?WINE:"#8B92A8"})+
-      '<span style="color:'+(stale?WINE:"#8B92A8")+';font-family:\'IBM Plex Mono\',monospace" class="text-11">'+text+(stale?" — варто зробити JSON-експорт":"")+'</span></div>';
+      '<span style="color:'+(stale?WINE:"#8B92A8")+';font-family:\'IBM Plex Mono\',monospace" class="text-11">'+text+(stale?t("backup_suggest"):"")+'</span></div>';
   }
   return '<div class="flex items-center justify-center gap-1_5 mt-6 opacity-60">'+
     icon("save",{size:12,color:"#8B92A8"})+
-    '<span id="save-indicator" style="color:#8B92A8;font-family:\'Inter\',sans-serif" class="text-11">'+(S.saveState==="saving"?"збереження…":"дані зберігаються локально в цьому браузері (localStorage)")+'</span></div>'+
+    '<span id="save-indicator" style="color:#8B92A8;font-family:\'Inter\',sans-serif" class="text-11">'+(S.saveState==="saving"?t("saving"):t("save_local"))+'</span></div>'+
     backupLine;
 }
 function renderSaveIndicatorOnly(){
   var el=document.getElementById("save-indicator");
-  if(el) el.textContent = S.saveState==="saving" ? "збереження…" : "дані зберігаються локально в цьому браузері (localStorage)";
+  if(el) el.textContent = S.saveState==="saving" ? t("saving") : t("save_local");
 }
 
 function render(){
@@ -1588,6 +2165,7 @@ document.addEventListener("click", function(e){
   if(t.getAttribute("data-stop")) e.stopPropagation();
   switch(action){
     case "set-mode": S.mode=t.getAttribute("data-value"); render(); break;
+    case "set-lang": S.lang=t.getAttribute("data-value"); scheduleSave(); render(); break;
     case "set-source-level": S.newSourceLevel=t.getAttribute("data-value"); render(); break;
     case "add-source": addSource(); break;
     case "add-example": addExampleSource(); break;
@@ -1642,7 +2220,7 @@ document.addEventListener("input", function(e){
     var field=t.getAttribute("data-bind-row");
     updateRow(t.getAttribute("data-src"), t.getAttribute("data-row"), field, t.value);
     scheduleSave();
-    if(field==="canonical" || field==="percent") render();
+    if(field==="canonical" || field==="percent" || field==="en") render();
   } else if(t.matches("[data-bind-match]")){
     updateMatch(t.getAttribute("data-id"), t.getAttribute("data-bind-match"), t.value);
     scheduleSave();
